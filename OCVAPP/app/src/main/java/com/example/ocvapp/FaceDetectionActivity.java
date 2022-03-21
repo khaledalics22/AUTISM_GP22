@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraActivity;
@@ -24,12 +25,12 @@ import org.opencv.objdetect.CascadeClassifier;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.List;
 
-public class FaceDetectionActivity extends CameraActivity implements CameraBridgeViewBase.CvCameraViewListener {
+public class FaceDetectionActivity extends CameraActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
     private static final String TAG = "OCVSample::Activity";
-
 
 
     private CameraBridgeViewBase mOpenCvCameraView;
@@ -57,6 +58,8 @@ public class FaceDetectionActivity extends CameraActivity implements CameraBridg
         Log.i(TAG, "Instantiated new " + this.getClass());
     }
 
+    ImageView imageView;
+
     /**
      * Called when the activity is first created.
      */
@@ -68,7 +71,7 @@ public class FaceDetectionActivity extends CameraActivity implements CameraBridg
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.face_detect_surface_view);
-
+        imageView = findViewById(R.id.image);
         mOpenCvCameraView = findViewById(R.id.face_detect_camera_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
@@ -112,7 +115,12 @@ public class FaceDetectionActivity extends CameraActivity implements CameraBridg
 
         // The faces will be a 20% of the height of the screen
         absoluteFaceSize = (int) (height * 0.2);
+
+        lastTime = System.currentTimeMillis();
+        pClass = 4;
     }
+
+    long lastTime;
 
     public void onCameraViewStopped() {
 
@@ -197,10 +205,16 @@ public class FaceDetectionActivity extends CameraActivity implements CameraBridg
         mOpenCvCameraView.enableView();
     }
 
-    public Mat onCameraFrame(Mat inputFrame) {
-        // Create a grayscale image
-        Imgproc.cvtColor(inputFrame, grayscaleImage, Imgproc.COLOR_RGBA2RGB);
+    private Mat img;
+    private Mat rgbaImage;
+    private Mat faceImg;
+    private String[] classes = new String[]{"anger", "disgust", "fear", "happy", "Natural", "sadness", "surprise"};
+    private int pClass;
 
+    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
+        // Create a grayscale image
+        grayscaleImage = inputFrame.gray();
+        rgbaImage = inputFrame.rgba();
         MatOfRect faces = new MatOfRect();
 
         // Use the classifier to detect faces
@@ -211,12 +225,61 @@ public class FaceDetectionActivity extends CameraActivity implements CameraBridg
 
         // If there are any faces found, draw a rectangle around it
         Rect[] facesArray = faces.toArray();
-        for (int i = 0; i < facesArray.length; i++)
-            Imgproc.rectangle(inputFrame, facesArray[i].tl(), facesArray[i].br(), new Scalar(0, 255, 0, 255), 3);
 
-        return inputFrame;
+        for (int i = 0; i < facesArray.length; i++) {
+
+            if (System.currentTimeMillis() - lastTime > 500) {
+                lastTime = System.currentTimeMillis();
+                faceImg = rgbaImage.submat(facesArray[i].y, facesArray[i].y + facesArray[i].height,
+                        facesArray[i].x, facesArray[i].x + facesArray[i].width);
+
+                Imgproc.resize(faceImg, faceImg, new Size(128, 128));
+                Imgproc.cvtColor(faceImg, faceImg, Imgproc.COLOR_RGBA2RGB);
+//            if(faceImg!=null)
+                faceImg.convertTo(faceImg, CvType.CV_8UC4);
+//            Log.e("Face Image", String.valueOf(faceImg.channels()));
+                byte[] bytes = new byte[faceImg.rows() * faceImg.cols() * faceImg.channels()];
+                faceImg.get(0, 0, bytes);
+
+                pClass = getIndexOfLargest(EmotionDetection.
+                        detectEmotion(this, ByteBuffer.wrap(bytes)));
+                Log.e("Emotion", classes[pClass]);
+            }
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Bitmap bitmap = Bitmap.createBitmap(faceImg.cols(), faceImg.rows(), Bitmap.Config.ARGB_8888);
+//                    Utils.matToBitmap(faceImg,bitmap);
+//                    imageView.setImageBitmap(bitmap);
+//                }
+//            });
+            try {
+                Imgproc.putText(rgbaImage, classes[pClass], facesArray[i].tl(), Imgproc.FONT_HERSHEY_COMPLEX, Imgproc.FONT_HERSHEY_PLAIN, new Scalar(255, 0, 0, 255), 2);
+            } catch (Exception e) {
+
+            }
+//            Imgproc.rectangle(rgbaImage, facesArray[i].tl(), facesArray[i].br(), new Scalar(0, 0, 255, 255), 2);
+//            break;
+        }
+        return rgbaImage;
     }
 
+    public int getIndexOfLargest(float[] array) {
+//        Log.e("Output",Arrays.toString(array));
+        if (array == null || array.length == 0) return -1; // null or empty
+
+        int largest = 0;
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > array[largest]) largest = i;
+        }
+        return largest; // position of the first largest found
+    }
+
+    public ByteBuffer Mat2Bytes(Mat mat) {
+        byte[] b = new byte[mat.channels() * mat.cols() * mat.rows()];
+        mat.get(0, 0, b);
+        return ByteBuffer.wrap(b);
+    }
 //    private Scalar convertScalarHsv2Rgba(Scalar hsvColor) {
 //        Mat pointMatRgba = new Mat();
 //        Mat pointMatHsv = new Mat(1, 1, CvType.CV_8UC3, hsvColor);

@@ -332,7 +332,7 @@ public class FaceDetectionActivity extends CameraActivity implements CameraBridg
 
     private int most_freq_class(List<Integer> list) {
         Collections.sort(list);
-        Log.e("Predicted List ---------", list.toString());
+//        Log.e("Predicted List ---------", list.toString());
         int mode = 0;
         int freq_class = 0;
         int curr_class = 0;
@@ -353,7 +353,7 @@ public class FaceDetectionActivity extends CameraActivity implements CameraBridg
         if (mode > max_mode) {
             freq_class = curr_class;
         }
-        Log.e("Predicted class ------------", String.valueOf(freq_class));
+//        Log.e("Predicted class ------------", String.valueOf(freq_class));
         predicted_list.clear();
         return freq_class;
     }

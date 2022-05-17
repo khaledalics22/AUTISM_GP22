@@ -1,5 +1,5 @@
 <resources>
-    <string  name="app_name">WithYOU</string>
+    <string name="app_name">WithYOU</string>
     <string name="apple">تفاحة\</string>
     <string name="grapes">عنب\</string>
     <string name="orange">برتقالة\</string>

@@ -38,6 +38,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.try1.MenuActivity" />
+        <activity android:name="com.example.try1.MiddleAcivity" />
+        <activity android:name="com.example.try1.ItemActivity" />
+        <activity android:name="com.example.try1.Details" />
+        <activity android:name="com.example.try1.TestChoose" />
+
     </application>
 
 </manifest>

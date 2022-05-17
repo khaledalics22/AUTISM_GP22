@@ -1,11 +1,21 @@
 package com.example.ocvapp;
 
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,11 +26,58 @@ public class MainActivity extends AppCompatActivity {
     private Button btlogin;
     private VideoView video;
     MediaPlayer mMediaPlayer;
+    Dialog mDialog;
+
+    public void showsplash() {
+
+        mDialog = new Dialog(MainActivity.this,
+                android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View v = LayoutInflater.from(this).inflate(R.layout.activity_splash_screen,null);
+        ImageView logoImg = v.findViewById(R.id.logo);
+        mDialog.setContentView(v);
+        mDialog.setCancelable(true);
+        mDialog.show();
+
+        //animate
+        Animation anim = new RotateAnimation(-5f,5f, 150f, 150f);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setDuration(700);
+
+// Start animating the image
+        logoImg.startAnimation(anim);
+
+// Later.. stop the animation
+//        logoImg.setAnimation(null);
+
+        final Handler handler  = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                {
+                    mDialog.dismiss();
+                }
+            }
+        };
+        handler.postDelayed(runnable, 5000);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActionBar actionBar = getActionBar();
+        if(actionBar!= null){
+            Log.e("Action Bar", "*******************************");
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setLogo(R.mipmap.ic_logo);
+            actionBar.setDisplayUseLogoEnabled(true);
+        }
+        //show splash screen
+        showsplash();
+
         video = (VideoView) findViewById(R.id.videoView);
         btlogin = (Button) findViewById(R.id.Login);
 
@@ -30,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
+
                 mediaPlayer.setLooping(true);
             }
         });

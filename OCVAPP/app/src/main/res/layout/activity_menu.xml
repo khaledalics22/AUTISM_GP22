@@ -11,38 +11,32 @@
 
     <Button
         android:id="@+id/glass_btn"
-        style="@android:style/Widget.DeviceDefault.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Glass"
         android:textColor="@color/ask_background"
-        android:textSize="34sp"
-        android:textStyle="bold"
+        style="@style/BigButton"
         tools:targetApi="p" />
 
     <Button
         android:id="@+id/Train"
-        style="@android:style/Widget.DeviceDefault.Button.Colored"
+        style="@style/BigButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Train"
         android:textColor="@color/ask_background"
-        android:textSize="34sp"
-        android:textStyle="bold"
         tools:targetApi="p" />
 
     <Button
         android:id="@+id/Test"
-        style="@android:style/Widget.DeviceDefault.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Test"
+        style="@style/BigButton"
         android:textColor="@color/ask_background"
-        android:textSize="34sp"
-        android:textStyle="bold"
         tools:targetApi="p" />
 
 </LinearLayout>

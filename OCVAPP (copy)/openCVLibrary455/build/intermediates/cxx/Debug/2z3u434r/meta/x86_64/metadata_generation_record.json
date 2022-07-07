@@ -1,0 +1,44 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 21 min SDK version: x86_64",
+    "file_": "/home/khalid/Desktop/AUTISM_GP22/OCVAPP/openCVLibrary455/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|x86_64",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -714403447
+  },
+  {
+    "level_": 0,
+    "message_": "JSON \u0027/home/khalid/Desktop/AUTISM_GP22/OCVAPP/openCVLibrary455/.cxx/Debug/2z3u434r/x86_64/android_gradle_build.json\u0027 was up-to-date",
+    "file_": "/home/khalid/Desktop/AUTISM_GP22/OCVAPP/openCVLibrary455/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|x86_64",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1040632798
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed without problems",
+    "file_": "/home/khalid/Desktop/AUTISM_GP22/OCVAPP/openCVLibrary455/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|x86_64",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -289186555
+  }
+]

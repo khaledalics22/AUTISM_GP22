@@ -31,15 +31,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OCVAPP">
-<!--        <activity-->
-<!--            android:name=".SplashScreen"-->
-<!--            android:theme="@style/Theme.AppCompat.NoActionBar"-->
-<!--            android:exported="true" >-->
-<!--            <intent-filter>-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <activity
+            android:name=".CustomFD"
+            android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".SplashScreen" -->
+        <!-- android:theme="@style/Theme.AppCompat.NoActionBar" -->
+        <!-- android:exported="true" > -->
+        <!-- <intent-filter> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -1,7 +1,11 @@
 package com.example.ocvapp.CustomFaceDetection;
 
+import android.util.Log;
+
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+
+import java.util.Arrays;
 
 public class ArrayHelpers {
 
@@ -9,7 +13,8 @@ public class ArrayHelpers {
 		float[][] arr = new float[img.rows()][img.cols()];
 		for(int i = 0; i < img.rows(); i++){
 			for(int j = 0; j < img.cols(); j++){
-				arr[i][j] = img.at(Float.TYPE, i,j).getV();
+//				Log.e(" Mat To Array: -------------", (Arrays.toString(img.get(i, j))));
+				arr[i][j] =(float)img.get(i,j)[0];
 			}
 		}
 		return arr;

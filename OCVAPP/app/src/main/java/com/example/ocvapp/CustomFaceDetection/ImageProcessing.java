@@ -1,7 +1,11 @@
 package com.example.ocvapp.CustomFaceDetection;
 
+import android.util.Log;
+
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfInt;
+import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
@@ -10,8 +14,9 @@ import org.opencv.imgproc.Imgproc;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
+import org.opencv.objdetect.Objdetect;
 public class ImageProcessing {
 	public enum HAAR_FILTERS{
 		TWO_H,
@@ -44,12 +49,19 @@ public class ImageProcessing {
 
 			return img;
 		}
+		public static MatOfRect integrateRect(MatOfRect faces){
+			Log.e("Rects Integration----1-----", Arrays.toString(faces.toArray()));
+			Objdetect.groupRectangles(faces, new MatOfInt(),1,1);
+			Log.e("Rects Integration-----2----", Arrays.toString(faces.toArray()));
+
+			return faces;
+		}
 
 		public static ArrayList<float[][]> prepareImage(Mat img_mat){
 			if (img_mat == null) return null;
 			//convert to mat
 			//resize window
-			Imgproc.resize(img_mat, img_mat, new Size(frame_width, frame_height), 0.5, 0.5);
+			Imgproc.resize(img_mat, img_mat, new Size(img_mat.rows(), img_mat.height()), 0.5, 0.5);
 			// get integral
 			float[][] resized_img = ArrayHelpers.matToArray(img_mat);
 			float[][] i_img = getIntegralImg(resized_img);

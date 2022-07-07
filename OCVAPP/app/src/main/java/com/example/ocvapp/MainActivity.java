@@ -121,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // When the Activity is destroyed, release our MediaPlayer and set it to null.
-        mMediaPlayer.release();
+        if(mMediaPlayer!=null)
+         mMediaPlayer.release();
         mMediaPlayer = null;
     }
 }

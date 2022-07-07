@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ocvapp.CustomFD;
 import com.example.ocvapp.FaceDetectionActivity;
 import com.example.ocvapp.R;
 
@@ -23,7 +24,7 @@ public class MenuActivity extends AppCompatActivity {
         trainbtn = (Button) findViewById(R.id.Train);
         glassBtn = findViewById(R.id.glass_btn);
         glassBtn.setOnClickListener(view -> {
-            startActivity(new Intent(this, FaceDetectionActivity.class));
+            startActivity(new Intent(this, CustomFD.class));
         });
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override

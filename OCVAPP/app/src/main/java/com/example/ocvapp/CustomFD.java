@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
 
+import com.example.ocvapp.CustomEmotionRecognition.EmotionRecognition;
 import com.example.ocvapp.CustomFaceDetection.FaceDetector;
 import com.example.ocvapp.CustomFaceDetection.ImageProcessing;
 
@@ -42,6 +43,9 @@ public class CustomFD extends CameraActivity implements CameraBridgeViewBase.CvC
 
 
     ImageView imageView;
+    long lastTimeDetect;
+    int method = 4;
+    FDBackground asyncTask;
     private CameraBridgeViewBase mOpenCvCameraView;
     private boolean faceExists;
     private boolean profileFaceExists;
@@ -50,14 +54,11 @@ public class CustomFD extends CameraActivity implements CameraBridgeViewBase.CvC
     private long lastTimeMedia = -1;
     private Mat grayscaleImage;
     private int absoluteFaceSize;
-    long lastTimeDetect;
     private Mat rgbaImage;
     private Mat faceImg;
-    private String[] classes = new String[]{"anger", "disgust", "Natural", "happy", "fear", "sadness", "surprise"};
+    private final String[] classes = new String[]{"anger", "disgust", "Natural", "happy", "fear", "sadness", "surprise"};
     private int pClass;
     private Rect detectedFace = null;
-    private List<Integer> predicted_list = new ArrayList<>();
-
 //    private Rect eyearea;
 //    private Rect eyearea_right;
 //    private Rect eyearea_left;
@@ -65,16 +66,13 @@ public class CustomFD extends CameraActivity implements CameraBridgeViewBase.CvC
 //    Mat teplateR;
 //    Mat teplateL;
 //    private int absoluteEyeSize;
-
-
-    int method = 4;
-
+    private final List<Integer> predicted_list = new ArrayList<>();
+    private boolean detectionTaskFinished = true;
     private CascadeClassifier cascadeClassifier;
     private CascadeClassifier cascadeLEClassifier;
     private CascadeClassifier cascadeREClassifier;
     private CascadeClassifier cascadeProClassifier;
-
-    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
+    private final BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
             switch (status) {
@@ -92,10 +90,10 @@ public class CustomFD extends CameraActivity implements CameraBridgeViewBase.CvC
         }
     };
 
+
     public CustomFD() {
         Log.i(TAG, "Instantiated new " + this.getClass());
     }
-
 
     /**
      * Called when the activity is first created.
@@ -162,10 +160,8 @@ public class CustomFD extends CameraActivity implements CameraBridgeViewBase.CvC
         pClass = 4;
     }
 
-
     public void onCameraViewStopped() {
     }
-
 
     // detect emotion of face stored in faceImg
     // store emotion class in pClass
@@ -183,31 +179,6 @@ public class CustomFD extends CameraActivity implements CameraBridgeViewBase.CvC
                 detectEmotion(this, ByteBuffer.wrap(bytes)));
 //        Log.e("Emotion", classes[pClass]);
     }
-
-
-    // detect frontal face of image stored in grayscaleImage
-    // store detected Rect in detectedFace (Gray)
-    // stores cropped face in faceImg (rgba)
-    class FDBackground extends AsyncTask<Mat, Void, MatOfRect> {
-
-        @Override
-        protected MatOfRect doInBackground(Mat... mats) {
-            return FaceDetector.detect(grayscaleImage, CustomFD.this);
-        }
-
-        @Override
-        protected void onPostExecute(MatOfRect faces) {
-            Log.e("Detected Faces ---------------", String.valueOf(faces.size()));
-            MatOfRect newFaces = ImageProcessing.integrateRect(faces);
-            Log.e("Integrated Faces ---------------", Arrays.toString(newFaces.get(0, 0)));
-            if (newFaces.toArray().length > 0) {
-                detectedFace = newFaces.toArray()[0];
-            }
-        }
-
-    }
-
-    FDBackground asyncTask;
 
     private void detectFaces(Mat grayscaleImage) {
 //        if(asyncTask!=null){
@@ -333,8 +304,9 @@ public class CustomFD extends CameraActivity implements CameraBridgeViewBase.CvC
         grayscaleImage = inputFrame.gray();
         rgbaImage = inputFrame.rgba();
 
-        if (System.currentTimeMillis() - lastTimeDetect > 10) {
+        if (System.currentTimeMillis() - lastTimeDetect > 10 && detectionTaskFinished) {
             lastTimeDetect = System.currentTimeMillis();
+            detectionTaskFinished = false;
             detectFaces(grayscaleImage);
 //            detectProfileImage();
 //            predicted_list.add(detectEmotion());
@@ -366,6 +338,31 @@ public class CustomFD extends CameraActivity implements CameraBridgeViewBase.CvC
             if (array[i] > array[largest]) largest = i;
         }
         return largest; // position of the first largest found
+    }
+
+    // detect frontal face of image stored in grayscaleImage
+    // store detected Rect in detectedFace (Gray)
+    // stores cropped face in faceImg (rgba)
+    class FDBackground extends AsyncTask<Mat, Void, MatOfRect> {
+
+        @Override
+        protected MatOfRect doInBackground(Mat... mats) {
+            return FaceDetector.getInstance().detect(grayscaleImage, CustomFD.this);
+        }
+
+        @Override
+        protected void onPostExecute(MatOfRect faces) {
+            Log.e("Detected Faces ---------------", String.valueOf(faces.size()));
+            MatOfRect newFaces = ImageProcessing.integrateRect(faces);
+            Log.e("Integrated Faces ---------------", Arrays.toString(newFaces.get(0, 0)));
+            if (newFaces.toArray().length > 0) {
+                detectedFace = newFaces.toArray()[0];
+//                EmotionRecognition.Emotions emotion = EmotionRecognition.getInstance().predict(CustomFD.this, detectedFace);
+//                Log.e("Emotion detected---------------:", String.valueOf(emotion));
+            }
+            detectionTaskFinished = true;
+        }
+
     }
 
 }

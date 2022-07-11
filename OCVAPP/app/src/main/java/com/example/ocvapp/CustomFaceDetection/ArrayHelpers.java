@@ -2,7 +2,7 @@ package com.example.ocvapp.CustomFaceDetection;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-
+import org.opencv.ml.SVM;
 public class ArrayHelpers {
     private ArrayHelpers() {
     }

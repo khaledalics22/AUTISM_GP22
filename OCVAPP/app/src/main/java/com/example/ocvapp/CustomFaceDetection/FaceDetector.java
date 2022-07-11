@@ -24,7 +24,9 @@ public class FaceDetector {
 
     public MatOfRect detect(Mat mat_img, Context context) {
         ArrayList<float[][]> features = ImageProcessing.prepareImage(mat_img);
+        double t1 = System.currentTimeMillis();
         MatOfRect rects = detectFaces(features, context);
+        Log.e("Face detection","Faces detection time= "+ ((System.currentTimeMillis()- t1)/1000));
         return rects;
     }
 
@@ -34,10 +36,7 @@ public class FaceDetector {
         ArrayList<Rect> rects = new ArrayList<>();
         double scale = 1.5;
         int wsize = Math.min(X.get(0).length, X.get(0)[0].length);
-        Log.e(String.valueOf(X.get(0).length), String.valueOf(X.get(0)[0].length));
-        if (X.get(0)[0].length < wsize) {
-            wsize = X.get(0)[0].length;
-        }
+        Log.e("Features Shape",String.valueOf(X.get(0).length)+", "+ String.valueOf(X.get(0)[0].length));
         for (int i = 0; i < 3; i++) {
             // add rectangles
             rects.addAll(scanImage(X, wsize, wsize / 2, context));
@@ -62,7 +61,7 @@ public class FaceDetector {
         for (int i = 0; i < X.get(0).length - wsize + 1; i += shift) {
             for (int j = 0; j < X.get(0)[0].length - wsize + 1; j += shift) {
                 if (model.predict(i, j, wsize, X)) {
-                    preds.add(new Rect(j, i, wsize, wsize));
+                    preds.add(new Rect(i, j, wsize, wsize));
                 }
             }
         }

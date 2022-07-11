@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import org.opencv.core.Rect;
+import org.opencv.ml.SVM;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -83,7 +84,8 @@ public class EmotionRecognition {
     }
 
     private static Emotions predictEmotion(Context context, ByteBuffer byteBuffer) {
-
+        SVM model = SVM.load("");
+//        model.
 
         return Emotions.HAPPY;
     }

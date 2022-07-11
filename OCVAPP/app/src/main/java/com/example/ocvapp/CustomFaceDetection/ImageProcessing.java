@@ -1,6 +1,7 @@
 package com.example.ocvapp.CustomFaceDetection;
 
 import android.util.Log;
+import android.util.TimingLogger;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
@@ -55,16 +56,23 @@ public class ImageProcessing {
         if (img_mat == null) return null;
         //convert to mat
         //resize window
-        Imgproc.resize(img_mat, img_mat, new Size(img_mat.rows(), img_mat.height()), 0.5, 0.5);
+//        TimingLogger timings = new TimingLogger("Face", "prepare Image");
+        Mat new_img_mat = new Mat();
+        double t1 = System.currentTimeMillis();
+        Imgproc.resize(img_mat, new_img_mat, new Size(288,384), 0.5, 0.5);
+        double t2 = System.currentTimeMillis() - t1;
+//        timings.addSplit("resize time");
         // get integral
-        float[][] resized_img = ArrayHelpers.matToArray(img_mat);
+        double t3 = System.currentTimeMillis();
+        float[][] resized_img = ArrayHelpers.matToArray(new_img_mat);
         float[][] i_img = getIntegralImg(resized_img);
         // extract features
         float[][] img1 = extractHaarFeatures(i_img, HAAR_FILTERS.TWO_H, 3);
         float[][] img2 = extractHaarFeatures(i_img, HAAR_FILTERS.TWO_V, 3);
         float[][] img3 = extractHaarFeatures(i_img, HAAR_FILTERS.THREE, 3);
         float[][] img4 = extractHaarFeatures(i_img, HAAR_FILTERS.FOUR, 3);
-
+        double t4 = System.currentTimeMillis() - t3;
+//        timings.addSplit("features extraction");
         int min_h = Math.min(img4.length, Math.min(img3.length, Math.min(img1.length, img2.length)));
         int min_w = Math.min(img4[0].length, Math.min(img3[0].length, Math.min(img1[0].length, img2[0].length)));
 
@@ -73,6 +81,10 @@ public class ImageProcessing {
         list.add(ArrayHelpers.getSlice(img2, 0, 0, min_w, min_h));
         list.add(ArrayHelpers.getSlice(img3, 0, 0, min_w, min_h));
         list.add(ArrayHelpers.getSlice(img4, 0, 0, min_w, min_h));
+        double t5 = System.currentTimeMillis() - t1;
+        Log.e("Feature extraction time", "resize time = " +String.valueOf(t2/1000)+ ",  " +
+                "feature extraction time = "+String.valueOf(t4/1000)+ ",   total_time = "+ String.valueOf(t5/1000));
+//        timings.dumpToLog();
         return list;
     }
 

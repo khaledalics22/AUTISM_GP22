@@ -5,10 +5,10 @@ import java.util.TreeMap;
 
 public class LBP {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		extractFeatures(null); 
-	}
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//		extractFeatures(null); 
+//	}
 	private static  Object extractFeatures(int[][] img) {
         int[][] img1 = new int[][]{{1,2,2,2,2,2,2},{5,6,4,5,6,7,4},{5,3,1,6,4,3,2},{5,3,1,6,4,3,2},{5,3,1,6,4,3,2},{5,3,1,6,4,3,2},{5,3,1,6,4,3,2}};
         int[][] lbp = get_LBP(img1, 8);

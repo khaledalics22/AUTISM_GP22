@@ -36,7 +36,7 @@ public class FaceDetectionModel {
         int width = 32 * 2;
         int height = 32 * 2;
         float[] preds = new float[2];
-        float[][] window1 = ArrayHelpers.getSlice(X.get(0), j, i, wsize, wsize);
+        float[][] window1 = ArrayHelpers.getSlice(X.get(0), i, j, wsize, wsize);
         byte[] bytes = new byte[width * height];
         Mat x = ArrayHelpers.arrayToMat(window1);
         Imgproc.resize(x, x, new Size(width, height), 0.5, 0.5);

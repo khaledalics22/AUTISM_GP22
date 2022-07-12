@@ -26,6 +26,24 @@ public class HelloWorld{
     }
 
  }
+ private static float[] get_LBPH_features(int[][] img) {
+     // applay LBP
+     int[][] lbp = get_LBP(img, 8, 2);
+    // regional histograms
+    float[] hist = get_LBP_Hist(lbp);
+    // standerize
+   // standerize
+    float [] mue = new float[] {0.5f, 0.5f, 5.0f }; // read from file 
+    float [] std= new float[] {0.5f, 0.5f, 0.70710678f}; // read from file
+    for (int i=0;i<hist.length;i++){
+        if (std[i]==0) 
+            hist[i]=0;
+        else 
+            hist[i]=(hist[i]-(float)mue[i])/(float)std[i];
+    }
+     
+    return hist;
+ }
  private static int[][] get_LBP(int[][] img, int neighbors, int radius) {
     int width, height;
     if (neighbors == 8) {

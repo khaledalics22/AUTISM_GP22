@@ -79,7 +79,7 @@ public class MainActivityLogin extends AppCompatActivity {
              */
             @Override
             public void onFailure(Call<SignupRequest> call, Throwable t) {
-                Log.e("Intro Activity", t.getMessage());
+                Log.e("iiiiiiii", t.getMessage());
                 Toast.makeText(MainActivityLogin.this, "fail " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity {
     private Button testbtn;
-    private Button trainbtn;
+    private Button trainbtn,profilebtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,8 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         testbtn=(Button) findViewById(R.id.Test);
         trainbtn=(Button) findViewById(R.id.Train);
+        profilebtn=(Button) findViewById(R.id.Profile);
+
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,6 +35,16 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        profilebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent;
+                intent =  new Intent(MenuActivity.this, Profile.class);
+                startActivity(intent);
+            }
+        });
+
     }
     @Override
     public void onBackPressed(){

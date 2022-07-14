@@ -44,7 +44,6 @@ public class MainActivitySignup extends AppCompatActivity {
         mEndPointAPI = RetrofitClass.getClient().create(EndPointAPI.class);
         btnsignup.setOnClickListener(new View.OnClickListener() {
 
-            //            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 firstnamestring = firstname.getText().toString();
@@ -60,10 +59,8 @@ public class MainActivitySignup extends AppCompatActivity {
         });
 
     }
-    //    @RequiresApi(api = Build.VERSION_CODES.N)
     private void submit() {
         SignUpData signUpData = new SignUpData(usernamestring,passwordstring,emailstring,firstnamestring,lastnamestring,birthdaystring,genderstring);
-
         mEndPointAPI.signUp(signUpData).enqueue(new Callback<SignupRequest>() {
             /**
              * Invoked for a received HTTP response.
@@ -77,7 +74,6 @@ public class MainActivitySignup extends AppCompatActivity {
             @Override
             public void onResponse(Call<SignupRequest> call, retrofit2.Response<SignupRequest> response) {
                 if (response.isSuccessful()) {
-                    Log.v("aaaaaaaaaaaaaaaaaaa", response.body().toString());
                     user.setToken(response.body().getToken());
                     user.setUserName(signUpData.getUserName());
                     user.setPassword(signUpData.getPassword());
@@ -86,7 +82,8 @@ public class MainActivitySignup extends AppCompatActivity {
                     user.setEmail(signUpData.getEmail());
                     user.setBrithDay(signUpData.getBrithDay());
                     user.setGander(signUpData.getGander());
-                    Toast.makeText(MainActivitySignup.this, "Success " + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.v("eeeeeeeeeeee", user.getToken());
+                    Toast.makeText(MainActivitySignup.this, "Success  " + user.getToken(), Toast.LENGTH_SHORT).show();
                     final Intent intent;
                     intent =  new Intent(MainActivitySignup.this, MenuActivity.class);
                     startActivity(intent);

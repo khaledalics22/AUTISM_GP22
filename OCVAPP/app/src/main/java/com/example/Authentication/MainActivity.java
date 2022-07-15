@@ -20,8 +20,8 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.ocvapp.R;
 import com.example.SelectModel.ChooseModels;
+import com.example.ocvapp.R;
 
 public class MainActivity extends AppCompatActivity {
     MediaPlayer mMediaPlayer;

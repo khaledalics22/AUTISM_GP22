@@ -6,15 +6,14 @@
     android:layout_centerHorizontal="true"
     android:background="@drawable/gif1"
     android:gravity="center_horizontal|center_vertical"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/glass_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Glass"
+        android:text="Tell Me Emotions"
         android:textColor="@color/ask_background"
         style="@style/BigButton"
         tools:targetApi="p" />
@@ -25,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Train"
+        android:text="Practice Emotions"
         android:textColor="@color/ask_background"
         tools:targetApi="p" />
 
@@ -34,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Test"
+        android:text="Tests"
         style="@style/BigButton"
         android:textColor="@color/ask_background"
         tools:targetApi="p" />

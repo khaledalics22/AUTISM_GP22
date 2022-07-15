@@ -8,11 +8,22 @@
         <entry key="..\:/GP/Code/OCVAPP/app/src/main/res/layout/activity_computer_vision.xml" value="0.11302083333333333" />
         <entry key="..\:/GP/Code/OCVAPP/app/src/main/res/layout/face_detect_surface_view.xml" value="0.11302083333333333" />
         <entry key="app/src/main/res/drawable/ic_withyou.xml" value="0.19" />
+        <entry key="app/src/main/res/layout/activity_authentication.xml" value="0.1890625" />
+        <entry key="app/src/main/res/layout/activity_check_rest_api.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_choose_models.xml" value="0.1890625" />
         <entry key="app/src/main/res/layout/activity_color_blob_detection.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_custom_face_detection.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_itemactivity.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/activity_menu.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_middle_acivity.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_ready_er.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.18072916666666666" />
+        <entry key="app/src/main/res/layout/activity_statistics.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_test_choose.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/face_detect_surface_view.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/menu/menu_activity_menu.xml" value="0.18177083333333333" />
       </map>
     </option>
   </component>

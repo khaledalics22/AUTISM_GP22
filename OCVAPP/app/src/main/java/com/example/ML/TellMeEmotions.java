@@ -16,6 +16,7 @@ import com.example.CustomER.CustomER;
 import com.example.CustomEyeContact.EyeContact;
 import com.example.CustomFD.ArrayHelpers;
 import com.example.CustomFD.ImageProcessing;
+import com.example.RestApis.RestAPI;
 import com.example.ocvapp.R;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -131,44 +132,11 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
         detectedFace = null;
         detectionTaskFinished = true;
 
-        // The faces will be a 20% of the height of the screen
-//        absoluteFaceSize = (int) (height * 0.2);
-//        absoluteEyeSize = (int) (height * 0.1);
-//        lastTimeDetect = System.currentTimeMillis();
-//        pClass = 4;
     }
 
     public void onCameraViewStopped() {
     }
 
-
-//    private int most_freq_class(List<Integer> list) {
-//        Collections.sort(list);
-////        Log.e("Predicted List ---------", list.toString());
-//        int mode = 0;
-//        int freq_class = 0;
-//        int curr_class = 0;
-//        int max_mode = 0;
-//        for (int i = 0; i < list.size(); i++) {
-//            if (list.get(i) == curr_class) {
-//                mode++;
-//            } else if (mode > max_mode) {
-//                max_mode = mode;
-//                mode = 1;
-//                curr_class = list.get(i);
-//                freq_class = curr_class - 1;
-//            } else {
-//                curr_class = list.get(i);
-//                mode = 1;
-//            }
-//        }
-//        if (mode > max_mode) {
-//            freq_class = curr_class;
-//        }
-////        Log.e("Predicted class ------------", String.valueOf(freq_class));
-//        predicted_list.clear();
-//        return freq_class;
-//    }
 
     private void playMedia() {
 //        if (System.currentTimeMillis() - lastTimeMedia > 3000) {
@@ -178,19 +146,9 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
             mPlayer.release();
             mPlayer = null;
         }
-//            lastTimeMedia = System.currentTimeMillis();
-//            if (pClass != prev_emotion) {
-//            prev_emotion = pClass;
+
         switch (pClass) {
-//                {"anger", "disgust", "Natural", "happy", "fear", "sadness", "surprise"}
-//                case 0:
-//                    mPlayer = MediaPlayer.create(this, R.raw.angery);
-//                    mPlayer.start();
-//                    break;
-//                case 1:
-//                    mPlayer = MediaPlayer.create(this, R.raw.disgusted);
-//                    mPlayer.start();
-//                    break;
+
             case NORMAL:
                 mPlayer = MediaPlayer.create(this, R.raw.happy);
                 mPlayer.start();
@@ -199,10 +157,7 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
                 mPlayer = MediaPlayer.create(this, R.raw.happy);
                 mPlayer.start();
                 break;
-//                case 4:
-//                    mPlayer = MediaPlayer.create(this, R.raw.scared);
-//                    mPlayer.start();
-//                    break;
+
             case SAD:
                 mPlayer = MediaPlayer.create(this, R.raw.sad);
                 mPlayer.start();
@@ -273,7 +228,9 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
             if (newFaces.toArray().length > 0) {
                 detectedFace = newFaces.toArray()[0];
                 if (System.currentTimeMillis() - lastEyeContact > 10000)
-                    EyeContact.getInstance().addScore(detectedFace, grayscaleImage.size());
+                    // send score in background
+                    new ECUpdateBackground().execute(
+                EyeContact.getInstance().getScore(detectedFace, grayscaleImage.size()));
 //                EmotionRecognition.Emotions emotion = EmotionRecognition.getInstance().predict(CustomFD.this, detectedFace);
 //                Log.e("Emotion detected---------------:", String.valueOf(emotion));
             }
@@ -283,6 +240,15 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
                 detectionTaskFinished = true;
         }
 
+    }
+    class ECUpdateBackground extends AsyncTask<Double, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Double... doubles) {
+            RestAPI.getInstance().addEyeContactScore(TellMeEmotions.this, doubles[0]);
+            return null;
+        }
     }
 
     class EDBackground extends AsyncTask<Void, Void, CustomER.Emotions> {

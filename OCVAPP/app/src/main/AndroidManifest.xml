@@ -31,16 +31,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OCVAPP">
-
+        <activity
+            android:name=".PracticeActivity"
+            android:exported="false" />
         <activity android:name="com.example.try1.MenuActivity" />
-        <activity android:name="com.example.Authentication.MainActivity"
+        <activity
+            android:name="com.example.Authentication.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name="com.example.ML.TellMeEmotions" />
         <activity android:name="com.example.SelectModel.ChooseModels" />
         <activity android:name="com.example.Statistics.Statistics" />

@@ -18,25 +18,17 @@ public class EyeContact {
         return instance;
     }
 
-    public void addScore(Rect rect, Size frame_size){
+    public double getScore(Rect rect, Size frame_size){
         double x = (rect.x + rect.width/2.0);
         double y = (rect.y + rect.height/2.0);
         double d =  Math.sqrt(Math.pow(x-frame_size.width / 2.0, 2) + Math.pow(y-frame_size.height / 2.0, 2));
         double score = Math.abs(frame_size.width - d)/frame_size.width;
         score = Math.round(score * 10)/10.0;
-        new ECUpdateBackground().execute(score);
+        return score;
 //        double  score  = (x/(frame_size.width - x)) * (y/(frame_size.height-y));
 //        Log.e("Eye Score --------------------: ", String.valueOf();
     }
 
-    class ECUpdateBackground extends AsyncTask<Double, Void, Void> {
 
-
-        @Override
-        protected Void doInBackground(Double... doubles) {
-             RestAPI.getInstance().addEyeContactScore(doubles[0]);
-             return null;
-        }
-    }
 
 }

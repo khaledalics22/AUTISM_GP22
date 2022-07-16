@@ -13,13 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.CustomFD.CustomFD;
 import com.example.ML.TellMeEmotions;
+import com.example.Practice.PracticeActivity;
 import com.example.Statistics.Statistics;
 import com.example.ocvapp.R;
 
 public class MenuActivity extends AppCompatActivity {
-    private Button testbtn;
-    private Button trainbtn;
-    private Button glassBtn;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -39,11 +37,16 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        testbtn = (Button) findViewById(R.id.Test);
-        trainbtn = (Button) findViewById(R.id.Train);
-        glassBtn = findViewById(R.id.glass_btn);
+        Button testbtn = (Button) findViewById(R.id.Test);
+        Button real_time_practice = (Button) findViewById(R.id.real_time_practice);
+        Button glassBtn = findViewById(R.id.glass_btn) ;
+        Button learn = findViewById(R.id.learn_sentence);
+
         glassBtn.setOnClickListener(view -> {
             startActivity(new Intent(this, TellMeEmotions.class));
+        });
+        real_time_practice.setOnClickListener(view -> {
+            startActivity(new Intent(this, PracticeActivity.class));
         });
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +56,7 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        trainbtn.setOnClickListener(new View.OnClickListener() {
+        learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Intent intent;

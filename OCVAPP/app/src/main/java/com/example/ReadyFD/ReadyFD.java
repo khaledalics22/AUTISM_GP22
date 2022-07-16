@@ -17,22 +17,15 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 
 public class ReadyFD implements FD {
-    //    private Mat grayscaleImage;
-//    private boolean frontalFaceExists;
-//    private boolean profileFaceExists;
+
     private static final String TAG = "OCVSample::Activity";
     private static ReadyFD instance = null;
     int method = 4;
     private final Rect detectedFace = null;
-    //    private int prev_emotion = -1;
-//    private long lastTimeMedia = -1;
-//    long lastTimeDetect;
-//    private Mat rgbaImage;
+
     private CascadeClassifier cascadeClassifier;
     private CascadeClassifier cascadeProClassifier;
-    //    private Mat faceImg;
     private int absoluteFaceSize;
-//    private List<Integer> predicted_list = new ArrayList<>();
 
     private ReadyFD() {
     }
@@ -92,69 +85,14 @@ public class ReadyFD implements FD {
             cascadeClassifier = new CascadeClassifier(mCascadeFile.getAbsolutePath());
 
 
-            ////////////////////////////////
-            // Copy the resource into a temp file so OpenCV can load it
-//            InputStream isLE = context.getResources().openRawResource(R.raw.haarcascade_lefteye_2splits);
-//            File cascadeDirLE = context.getDir("cascadeEL", Context.MODE_PRIVATE);
-//            File mCascadeFileLE = new File(cascadeDirLE, "haarcascade_eye_left.xml");
-//            FileOutputStream osLE = new FileOutputStream(mCascadeFileLE);
-//
-//
-//            byte[] bufferLE = new byte[4096];
-//            int bytesReadLE;
-//            while ((bytesReadLE = isLE.read(bufferLE)) != -1) {
-//                osLE.write(bufferLE, 0, bytesReadLE);
-//            }
-//            isLE.close();
-//            osLE.close();
-
-//            // Load the cascade classifier
-//            CascadeClassifier cascadeLEClassifier = new CascadeClassifier(mCascadeFileLE.getAbsolutePath());
-//            cascadeLEClassifier.load(mCascadeFileLE.getAbsolutePath());
-//
-//            // Copy the resource into a temp file so OpenCV can load it
-//            InputStream isRE = context.getResources().openRawResource(R.raw.haarcascade_lefteye_2splits);
-//            File cascadeDirRE = context.getDir("cascadeER", Context.MODE_PRIVATE);
-//            File mCascadeFileRE = new File(cascadeDirRE, "haarcascade_eye_right.xml");
-//            FileOutputStream osRE = new FileOutputStream(mCascadeFileRE);
-//
-//
-//            byte[] bufferRE = new byte[4096];
-//            int bytesReadRE;
-//            while ((bytesReadRE = isRE.read(bufferRE)) != -1) {
-//                osRE.write(bufferRE, 0, bytesReadRE);
-//            }
-//            isRE.close();
-//            osRE.close();
-//
-//            // Load the cascade classifier
-//            CascadeClassifier cascadeREClassifier = new CascadeClassifier(mCascadeFileRE.getAbsolutePath());
-//            cascadeREClassifier.load(mCascadeFileRE.getAbsolutePath());
-//
-//            if (cascadeClassifier.empty() || cascadeREClassifier.empty() || cascadeLEClassifier.empty()) {
-//                Log.e(TAG, "Failed to load cascade classifier");
-//                cascadeClassifier = null;
-//                cascadeREClassifier = null;
-//                cascadeLEClassifier = null;
-//            } else
-//                Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-
-//            mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
-
             cascadeDir.delete();
-//            mCascadeFileRE.delete();
-//            cascadeDirRE.delete();
-//            mCascadeFileLE.delete();
-//            cascadeDirLE.delete();
+
         } catch (Exception e) {
             Log.e("OpenCVActivity", "Error loading cascade", e);
         }
-        // And we are ready to go
-//        mOpenCvCameraView.enableView();
+
     }
 
-    // detect emotion of face stored in faceImg
-    // store emotion class in pClass
 
 
     // detect frontal face of image stored in grayscaleImage
@@ -168,14 +106,7 @@ public class ReadyFD implements FD {
             cascadeClassifier.detectMultiScale(grayscaleImage, faces, 1.1, 2, 2,
                     new Size(grayscaleImage.height() * 0.2, grayscaleImage.height() * 0.2), new Size());
         }
-//        Rect[] facesArray = faces.toArray();
-//        frontalFaceExists = facesArray.length != 0;
-//        for (Rect rect : facesArray) {
-//            detectedFace = rect;
-//            faceImg = rgbaImage.submat(rect.y, rect.y + rect.height,
-//                    rect.x, rect.x + rect.width);
-//            break;
-//        }
+
         return faces;
     }
 
@@ -191,47 +122,7 @@ public class ReadyFD implements FD {
                     new Size(absoluteFaceSize, absoluteFaceSize), new Size());
         }
         return faces;
-//        Rect[] facesArray = faces.toArray();
-//        profileFaceExists = facesArray.length != 0;
-//        for (Rect rect : facesArray) {
-//            detectedFace = rect;
-//            faceImg = rgbaImage.submat(rect.y, rect.y + rect.height,
-//                    rect.x, rect.x + rect.width);
-//
-//            //detect eye
-////            computeEyeArea(rect);
-//            //detect emotion
-//            break;
-//        }
+
     }
-
-//    private int most_freq_class(List<Integer> list) {
-//        Collections.sort(list);
-////        Log.e("Predicted List ---------", list.toString());
-//        int mode = 0;
-//        int freq_class = 0;
-//        int curr_class = 0;
-//        int max_mode = 0;
-//        for (int i = 0; i < list.size(); i++) {
-//            if (list.get(i) == curr_class) {
-//                mode++;
-//            } else if (mode > max_mode) {
-//                max_mode = mode;
-//                mode = 1;
-//                curr_class = list.get(i);
-//                freq_class = curr_class - 1;
-//            } else {
-//                curr_class = list.get(i);
-//                mode = 1;
-//            }
-//        }
-//        if (mode > max_mode) {
-//            freq_class = curr_class;
-//        }
-////        Log.e("Predicted class ------------", String.valueOf(freq_class));
-//        predicted_list.clear();
-//        return freq_class;
-//    }
-
 
 }

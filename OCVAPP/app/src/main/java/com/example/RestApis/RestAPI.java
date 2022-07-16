@@ -18,7 +18,8 @@ import java.util.Map;
 
 public class RestAPI {
 
-    private static final String BASE_URL = "https://b8c2-156-196-102-3.ngrok.io/";
+
+    private static final String BASE_URL = "https://6348-102-42-182-216.ngrok.io/";
     private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQwYjQ3NzZlMDQxYjJiNWMyN2NlYjUiLCJpYXQiOjE2NTc4NDQ4NTUsImV4cCI6MjQyOTAwNDUzMTM1NjgwMDYwfQ.RhlDsu3L8doNbDGTTT1H_DV1VA9LcFIjPKMxJSD-rAk";
     private static RestAPI instance;
 
@@ -80,10 +81,7 @@ public class RestAPI {
             }
 
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-               /* Date date = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                String strDate= formatter.format(date);*/
+            protected Map<String, String> getParams() {
                 String date = android.text.format.DateFormat.format("dd-MM-yyyy", new java.util.Date()).toString();
                 Map<String, String> params = new Hashtable<String, String>();
                 params.put("date", "25-10-2020");
@@ -95,8 +93,6 @@ public class RestAPI {
                 params.put("errorHappy", String.valueOf(score.getError_happy()));
                 params.put("errorSurprise", String.valueOf(score.getError_surprised()));
                 params.put("errorNatural", String.valueOf(score.getError_natural()));
-                /*params.put("copyrightsType",copyRightsType);
-                params.put("releaseDate",strDate);*/
                 return params;
             }
         };
@@ -107,7 +103,7 @@ public class RestAPI {
 
     }
 
-    public ArrayList<String> getStatistics(Context context, Statistics.OnResponseSuccess responseCallBack) {
+    public void getStatistics(Context context, Statistics.OnResponseSuccess responseCallBack) {
         final ArrayList<String> result = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, BASE_URL + "me/doing" + "?all=true&emotion=all"
                 , response -> {
@@ -117,7 +113,6 @@ public class RestAPI {
                 responseCallBack.getStatisticsSuccess(jsonObject);
                 Log.e("On Response Score -----------", jsonObject.toString());
 
-//                result.add(response);
             } catch (Exception e) {
                 Log.e("On Response Score -----------", "error parsing");
 
@@ -126,17 +121,14 @@ public class RestAPI {
         }, error -> Log.e("Error-Scores-----------", "" + error)) {
 
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders()  {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + TOKEN);
                 return headers;
             }
 
         };
-
-
         Singleton.getInstance(context).getRequestQueue().add(stringRequest);
-        return result;
 
     }
 
@@ -145,10 +137,7 @@ public class RestAPI {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, BASE_URL + "users"
                 , response -> {
             try {
-
                 Log.e("On Response Score -----------", response);
-
-//                result.add(response);
             } catch (Exception e) {
                 Log.e("On Response Score -----------", "error parsing");
 
@@ -157,7 +146,7 @@ public class RestAPI {
         }, error -> Log.e("Error-Scores-----------", "" + error)) {
 
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + TOKEN);
                 return headers;
@@ -172,7 +161,34 @@ public class RestAPI {
     }
 
 
-    public void addEyeContactScore(Double aDouble) {
-        //TODO implement this function
+    public void addEyeContactScore(Context context, Double score) {
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, BASE_URL + "me/eye_contact"
+                , response -> {
+            try {
+                Log.e("On Response Score -----------", response);
+            } catch (Exception e) {
+                e.fillInStackTrace();
+            }
+        }, error -> Log.e("Error-Scores-----------", "" + error)) {
+
+            @Override
+            public Map<String, String> getHeaders()  {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + TOKEN);
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams()  {
+
+                String date = android.text.format.DateFormat.format("dd-MM-yyyy",
+                        new java.util.Date()).toString();
+                Map<String, String> params = new Hashtable<String, String>();
+                params.put("date", date);
+                params.put("correctSad", String.valueOf(score));
+                return params;
+            }
+        };
+        Singleton.getInstance(context).getRequestQueue().add(stringRequest);
     }
 }

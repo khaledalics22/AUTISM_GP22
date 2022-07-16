@@ -11,19 +11,22 @@
     <Button
         android:id="@+id/glass_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        android:layout_margin="10dp"
         android:text="Tell Me Emotions"
         android:textColor="@color/ask_background"
         style="@style/BigButton"
         tools:targetApi="p" />
 
     <Button
-        android:id="@+id/Train"
+        android:id="@+id/real_time_practice"
         style="@style/BigButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
         android:text="Practice Emotions"
         android:textColor="@color/ask_background"
         tools:targetApi="p" />
@@ -31,10 +34,22 @@
     <Button
         android:id="@+id/Test"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
         android:text="Tests"
         style="@style/BigButton"
+        android:textColor="@color/ask_background"
+        tools:targetApi="p" />
+
+    <Button
+        android:id="@+id/learn_sentence"
+        style="@style/BigButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:text="Learn Sentences"
         android:textColor="@color/ask_background"
         tools:targetApi="p" />
 

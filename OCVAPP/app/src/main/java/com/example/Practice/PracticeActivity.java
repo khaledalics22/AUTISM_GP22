@@ -255,10 +255,11 @@ public class PracticeActivity extends CameraActivity implements CameraBridgeView
     }
 
     private void updateEmotionPhoto() {
+        //TODO change emotion type each time the function is called
         currentEmotion = CustomER.Emotions.HAPPY;
         emotionImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.happy, null));
         emotionText.setText(getEmotionText(currentEmotion));
-        emotionText.setTextColor(getEmotionColor(currentEmotion));
+        emotionText.setTextColor(ResourcesCompat.getColor(getResources(), getEmotionColor(currentEmotion), null));
     }
 
     private void validateEmotion() {

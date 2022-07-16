@@ -28,7 +28,6 @@ public class Statistics extends AppCompatActivity {
 
     }
 
-
     GraphView graphViewStatistics;
     GraphView graphViewEyeContact;
 

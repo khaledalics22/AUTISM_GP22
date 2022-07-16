@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_centerHorizontal="true"
+    android:gravity="center_horizontal|center_vertical"
+    android:layout_margin="5dp"
+
+    tools:context="com.example.App.MainActivityLogin">
+    <TextView
+        android:id="@+id/Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:layout_margin="1dp"
+        android:textColor="@color/second_color"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddresslg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColor="@color/second_color"
+
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/Passwordlg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:layout_margin="1dp"
+        android:textColor="@color/second_color"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/editTextPasswordlg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:textColor="@color/second_color"
+        android:textStyle="bold"
+
+        />
+    <Button
+        android:id="@+id/loginbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:text="Login"
+        android:textColor="@color/ask_background"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:background="@color/second_color"
+        />
+</LinearLayout>

@@ -18,13 +18,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class Statistics extends AppCompatActivity {
 
 
     public interface OnResponseSuccess {
         void getStatisticsSuccess(JSONObject jsonObject);
+
         void getEyeContactScoresSuccess(JSONObject jsonObject);
 
     }
@@ -56,13 +55,15 @@ public class Statistics extends AppCompatActivity {
 
     }
 
-    private void updateGraphStatistics( DataPoint[] points) {
-        graphViewStatistics.addSeries( new LineGraphSeries<DataPoint>(points));
+    private void updateGraphStatistics(DataPoint[] points) {
+        graphViewStatistics.addSeries(new LineGraphSeries<DataPoint>(points));
     }
-    private void updateGraphEyeContact( DataPoint[] points) {
-        graphViewEyeContact.addSeries( new LineGraphSeries<DataPoint>(points));
+
+    private void updateGraphEyeContact(DataPoint[] points) {
+        graphViewEyeContact.addSeries(new LineGraphSeries<DataPoint>(points));
 
     }
+
     class EyeContactBackground extends AsyncTask<Void, Void, Void> {
 
 
@@ -100,21 +101,12 @@ public class Statistics extends AppCompatActivity {
             return null;
         }
 
-
     }
-    class StatisticsBackground extends AsyncTask<Void, Void, Void> {
 
+    class StatisticsBackground extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Score score = new Score();
-            score.increaseCorrectSad();
-            score.increaseCorrectSad();
-            score.increaseCorrectSad();
-            score.increaseErrorHappy();
-            score.increaseErrorHappy();
-            score.increaseErrorHappy();
-            RestAPI.getInstance().setScore(Statistics.this, score);
             RestAPI.getInstance().getStatistics(Statistics.this, new OnResponseSuccess() {
                 @Override
                 public void getStatisticsSuccess(JSONObject jsonObject) {

@@ -86,6 +86,7 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
         mOpenCvCameraView = findViewById(R.id.face_detect_camera_view);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
+            mOpenCvCameraView.setCameraIndex(1);//BACK Camera
             mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
             mOpenCvCameraView.setCvCameraViewListener(this);
         }
@@ -118,7 +119,7 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
 
     @Override
     protected List<? extends CameraBridgeViewBase> getCameraViewList() {
-        return Collections.singletonList(mOpenCvCameraView);
+            return Collections.singletonList(mOpenCvCameraView);
     }
 
     public void onDestroy() {

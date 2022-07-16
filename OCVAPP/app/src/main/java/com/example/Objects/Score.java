@@ -7,14 +7,14 @@ public class Score {
     int correct_surprised, error_surprised;
 
     public Score() {
-        correct_happy = 1;
-        correct_sad = 1;
-        correct_natural = 1;
-        correct_surprised = 1;
-        error_happy = 1;
-        error_sad = 1;
-        error_natural = 1;
-        error_surprised = 1;
+        correct_happy = 0;
+        correct_sad = 0;
+        correct_natural = 0;
+        correct_surprised = 0;
+        error_happy = 0;
+        error_sad = 0;
+        error_natural = 0;
+        error_surprised = 0;
 
     }
 
@@ -88,4 +88,14 @@ public class Score {
     }
 
 
+    public void clear() {
+        correct_happy = 0;
+        correct_natural = 0;
+        correct_sad = 0;
+        correct_surprised = 0;
+        error_happy = 0;
+        error_natural = 0;
+        error_sad = 0;
+        error_surprised = 0;
+    }
 }

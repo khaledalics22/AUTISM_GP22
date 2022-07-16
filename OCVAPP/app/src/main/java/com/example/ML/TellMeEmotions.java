@@ -136,17 +136,21 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
 
     public void onCameraViewStopped() {
     }
-
+    private CustomER.Emotions prev_emotion = CustomER.Emotions.NORMAL;
 
     private void playMedia() {
 //        if (System.currentTimeMillis() - lastTimeMedia > 3000) {
+        if(pClass == prev_emotion){
+            return;
+        }
+        prev_emotion = pClass;
+
         Log.e("play music", "playing music");
         if (mPlayer != null) {
             mPlayer.stop();
             mPlayer.release();
             mPlayer = null;
         }
-
         switch (pClass) {
 
             case NORMAL:
@@ -178,7 +182,7 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         // Create a grayscale image
         Mat rgbaImage = inputFrame.rgba();
-        if (System.currentTimeMillis() - lastTimeDetect > 10 && detectionTaskFinished) {
+        if (System.currentTimeMillis() - lastTimeDetect > 1000 && detectionTaskFinished) {
             grayscaleImage = inputFrame.gray();
             lastTimeDetect = System.currentTimeMillis();
             Log.e("Face Detection----------------:", "start face detection");
@@ -189,12 +193,46 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
         try {
             if (detectedFace != null) {
                 Imgproc.rectangle(rgbaImage, detectedFace.tl(), detectedFace.br(), new Scalar(255, 0, 0, 255), 2);
+                Imgproc.putText(rgbaImage,getEmotionText(),detectedFace.tl(),Imgproc.FONT_HERSHEY_DUPLEX,1, getEmotionColor());
             }
         } catch (Exception e) {
             Log.e("OnCameraFrame", "failed to detect face");
         }
         // If there are any faces found, draw a rectangle around it
         return rgbaImage;
+    }
+
+    private String getEmotionText(){
+        switch (pClass) {
+
+//            case NORMAL:
+//               return "NORMAL";
+            case HAPPY:
+                return "HAPPY";
+            case SAD:
+                return "SAD";
+            case SURPRISED:
+                return "SURPRISED";
+            default:
+                return "NORMAL";
+
+        }
+    }
+
+    private Scalar getEmotionColor(){
+        switch (pClass) {
+//            case NORMAL:
+//               return "NORMAL";
+            case HAPPY:
+                return new Scalar(255, 255, 0,255);
+            case SAD:
+                return new Scalar(0,0,255,255);
+            case SURPRISED:
+                return new Scalar(255,255,255,255);
+            default:
+                return new Scalar(255, 192, 203,255);
+
+        }
     }
 
     // detect frontal face of image stored in grayscaleImage
@@ -227,10 +265,12 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
             Log.e("Integrated Faces ---------------", Arrays.toString(newFaces.get(0, 0)));
             if (newFaces.toArray().length > 0) {
                 detectedFace = newFaces.toArray()[0];
-                if (System.currentTimeMillis() - lastEyeContact > 10000)
+                if (System.currentTimeMillis() - lastEyeContact > 10000) {
                     // send score in background
                     new ECUpdateBackground().execute(
-                EyeContact.getInstance().getScore(detectedFace, grayscaleImage.size()));
+                            EyeContact.getInstance().getScore(detectedFace, grayscaleImage.size()));
+                    lastEyeContact = System.currentTimeMillis();
+                }
 //                EmotionRecognition.Emotions emotion = EmotionRecognition.getInstance().predict(CustomFD.this, detectedFace);
 //                Log.e("Emotion detected---------------:", String.valueOf(emotion));
             }
@@ -246,6 +286,7 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
 
         @Override
         protected Void doInBackground(Double... doubles) {
+            Log.e("EYE Score *****************", "start sending eye score");
             RestAPI.getInstance().addEyeContactScore(TellMeEmotions.this, doubles[0]);
             return null;
         }

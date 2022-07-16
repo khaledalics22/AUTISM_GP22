@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ML.ML;
 import com.example.ocvapp.R;
-import com.example.try1.MenuActivity;
+import com.example.Modes.ModesActivity;
 
 public class ChooseModels extends AppCompatActivity {
 
@@ -22,7 +22,7 @@ public class ChooseModels extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ML.buildFDModel(ChooseModels.this, ML.ModelType.READY);
-                startActivity(new Intent(ChooseModels.this, MenuActivity.class));
+                startActivity(new Intent(ChooseModels.this, ModesActivity.class));
             }
         });
 
@@ -31,7 +31,7 @@ public class ChooseModels extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ML.buildFDModel(ChooseModels.this, ML.ModelType.CUSTOM);
-                startActivity(new Intent(ChooseModels.this, MenuActivity.class));
+                startActivity(new Intent(ChooseModels.this, ModesActivity.class));
             }
         });
     }

@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.example.Objects.Score;
 import com.example.Statistics.Statistics;
+import com.example.try1.TestChoose;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,8 +21,8 @@ import java.util.Map;
 public class RestAPI {
 
 
-    private static final String BASE_URL = "https://53f6-102-42-182-216.ngrok.io/";
-    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQyMDQ4MWUzNTdmODBkMGM0N2MxYzEiLCJpYXQiOjE2NTc5MzA4ODEsImV4cCI6MjQyOTAwNDUzMTM1NzY2MDgwfQ.RVZh5sNY3ieAUb5OT1eHCo0jJOsIpa5PG7Y9DJdKuIQ";
+    public static final String BASE_URL = "https://fa37-156-196-219-171.ngrok.io/";
+//    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQyZmQ1ZjJkMjM5YjI4ODAxMTAzOTkiLCJpYXQiOjE2NTc5OTQ1OTEsImV4cCI6MjQyOTAwNDUzMTM1ODI5ODAwfQ.-T2SERw-DYqbsk6SCl5-_V7mRkbnyXLfmNpThGVkfi8";
     private static RestAPI instance;
 
     private RestAPI() {
@@ -50,7 +51,7 @@ public class RestAPI {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + TOKEN);
+                headers.put("Authorization",  User.getToken());
                 return headers;
             }
         };
@@ -76,7 +77,7 @@ public class RestAPI {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + TOKEN);
+                headers.put("Authorization",  User.getToken());
                 return headers;
             }
 
@@ -103,6 +104,35 @@ public class RestAPI {
 
     }
 
+    public void getRecognizeStatistics(Context context, Statistics.OnResponseSuccess responseCallBack) {
+        final ArrayList<String> result = new ArrayList<>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, BASE_URL + "me/recognize" + "?all=true&emotion=all"
+                , response -> {
+
+            Log.e("On Response statistics -----------", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                Log.e("On Response statistics -----------", "success");
+                responseCallBack.getStatisticsSuccess(jsonObject);
+            } catch (JSONException e) {
+                Log.e("On Response statistics -----------", "conversion failed");
+//                e.printStackTrace();
+            }
+
+
+        }, error -> Log.e("Error-statistics-----------", "" + error)) {
+
+            @Override
+            public Map<String, String> getHeaders()  {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization",  User.getToken());
+                return headers;
+            }
+
+        };
+        Singleton.getInstance(context).getRequestQueue().add(stringRequest);
+
+    }
     public void getStatistics(Context context, Statistics.OnResponseSuccess responseCallBack) {
         final ArrayList<String> result = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, BASE_URL + "me/doing" + "?all=true&emotion=all"
@@ -124,7 +154,7 @@ public class RestAPI {
             @Override
             public Map<String, String> getHeaders()  {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + TOKEN);
+                headers.put("Authorization",  User.getToken());
                 return headers;
             }
 
@@ -149,7 +179,7 @@ public class RestAPI {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + TOKEN);
+                headers.put("Authorization",  User.getToken());
                 return headers;
             }
 
@@ -175,7 +205,7 @@ public class RestAPI {
             @Override
             public Map<String, String> getHeaders()  {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + TOKEN);
+                headers.put("Authorization",  User.getToken());
                 return headers;
             }
 
@@ -208,7 +238,7 @@ public class RestAPI {
             @Override
             public Map<String, String> getHeaders()  {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + TOKEN);
+                headers.put("Authorization",  User.getToken());
                 return headers;
             }
 
@@ -221,6 +251,45 @@ public class RestAPI {
 //                return params;
 //            }
         };
+        Singleton.getInstance(context).getRequestQueue().add(stringRequest);
+    }
+
+    public void setScoreRecognize(Context context, Score score) {
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, BASE_URL + "me/recognize"
+                , response -> {
+            try {
+//                JSONObject object = new JSONObject(response);
+                Log.e("On Response set Score Recognize -----------", "success");
+//                result.add(response);
+            } catch (Exception e) {
+                e.fillInStackTrace();
+            }
+        }, error -> Log.e("Error-Scores Recognize-----------", "" + error)) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization",  User.getToken());
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                String date = android.text.format.DateFormat.format("dd-MM-yyyy", new java.util.Date()).toString();
+                Map<String, String> params = new Hashtable<String, String>();
+                params.put("date", date);
+                params.put("correctSad", String.valueOf(score.getCorrect_sad()));
+                params.put("correctHappy", String.valueOf(score.getCorrect_happy()));
+                params.put("correctSurprise", String.valueOf(score.getCorrect_surprised()));
+                params.put("correctNatural", String.valueOf(score.getCorrect_natural()));
+                params.put("errorSad", String.valueOf(score.getError_sad()));
+                params.put("errorHappy", String.valueOf(score.getError_happy()));
+                params.put("errorSurprise", String.valueOf(score.getError_surprised()));
+                params.put("errorNatural", String.valueOf(score.getError_natural()));
+                return params;
+            }
+        };
+
         Singleton.getInstance(context).getRequestQueue().add(stringRequest);
     }
 }

@@ -36,6 +36,15 @@
             android:layout_margin="10dp"
             android:background="@color/white"
             android:padding="20dp" />
+
+        <com.jjoe64.graphview.GraphView
+            android:paddingHorizontal="10dp"
+            android:id="@+id/graph_view_recognize_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:padding="20dp" />
         <!--        <GridLayout-->
         <!--            android:layout_width=""-->
         <!--            android:layout_heguight=""-->

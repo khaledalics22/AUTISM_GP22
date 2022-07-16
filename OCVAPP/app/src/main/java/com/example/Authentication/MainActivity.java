@@ -1,5 +1,4 @@
 package com.example.Authentication;
-
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
@@ -26,9 +25,9 @@ import com.example.ocvapp.R;
 public class MainActivity extends AppCompatActivity {
     MediaPlayer mMediaPlayer;
     Dialog mDialog;
-    private Button btlogin;
+    private Button btlogin,btnsignup;
     private VideoView video;
-
+    private static boolean splashShown = false;
     public void showsplash() {
 
         mDialog = new Dialog(MainActivity.this,
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         anim.setInterpolator(new LinearInterpolator());
         anim.setRepeatCount(Animation.INFINITE);
         anim.setRepeatMode(Animation.REVERSE);
-        anim.setDuration(700);
+        anim.setDuration(300);
 
 // Start animating the image
         logoImg.startAnimation(anim);
@@ -77,10 +76,13 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayUseLogoEnabled(true);
         }
         //show splash screen
-        showsplash();
-
+        if(!splashShown) {
+            showsplash();
+            splashShown =true;
+        }
         video = findViewById(R.id.videoView);
         btlogin = findViewById(R.id.Login);
+        btnsignup=(Button) findViewById(R.id.Signup);
 
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video);
         video.setVideoURI(uri);
@@ -97,11 +99,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final Intent intent;
-                intent = new Intent(MainActivity.this, ChooseModels.class);
+                intent = new Intent(MainActivity.this, MainActivityLogin.class);
+//                intent = new Intent(MainActivity.this, MenuActivity.class);
+
+
                 startActivity(intent);
             }
         });
-
+        btnsignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent;
+                intent = new Intent(MainActivity.this, MainActivitySignup.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

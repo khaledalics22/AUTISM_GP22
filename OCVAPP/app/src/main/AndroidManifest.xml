@@ -36,7 +36,7 @@
         <activity
             android:name="com.example.Practice.PracticeActivity"
             android:exported="false" />
-        <activity android:name="com.example.try1.MenuActivity" />
+        <activity android:name="com.example.Modes.ModesActivity" />
         <activity
             android:name="com.example.Authentication.MainActivity"
             android:exported="true">
@@ -50,6 +50,9 @@
         <activity android:name="com.example.SelectModel.ChooseModels" />
         <activity android:name="com.example.Statistics.Statistics" />
         <activity android:name="com.example.try1.MiddleAcivity" />
+        <activity android:name="com.example.Profile.ProfileUser" />
+        <activity android:name="com.example.Authentication.MainActivityLogin" />
+        <activity android:name="com.example.Authentication.MainActivitySignup"/>
         <activity android:name="com.example.try1.ItemActivity" />
         <activity android:name="com.example.try1.Details" />
         <activity android:name="com.example.try1.TestChoose" />

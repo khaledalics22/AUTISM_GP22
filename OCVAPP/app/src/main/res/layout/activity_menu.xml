@@ -27,7 +27,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_margin="10dp"
-        android:text="Practice Emotions"
+        android:text="Practice Expressions"
         android:textColor="@color/ask_background"
         tools:targetApi="p" />
 
@@ -37,7 +37,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_margin="10dp"
-        android:text="Tests"
+        android:text="Let's Play"
         style="@style/BigButton"
         android:textColor="@color/ask_background"
         tools:targetApi="p" />

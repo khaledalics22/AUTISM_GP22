@@ -13,6 +13,7 @@
         android:text="Custom Models"
         android:layout_height="0dp"
         android:textSize="28sp"
+        android:layout_margin="20dp"
         android:layout_weight="1"
         />
 
@@ -20,6 +21,8 @@
         android:id="@+id/ready_models"
         android:text="Ready Models"
         android:layout_height="0dp"
+        android:layout_margin="20dp"
+
         android:textSize="28sp"
         android:layout_width="match_parent"
         android:layout_weight="1" />

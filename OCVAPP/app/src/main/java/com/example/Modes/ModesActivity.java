@@ -1,4 +1,4 @@
-package com.example.try1;
+package com.example.Modes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +11,16 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.CustomFD.CustomFD;
+import com.example.Authentication.MainActivity;
 import com.example.ML.TellMeEmotions;
 import com.example.Practice.PracticeActivity;
+import com.example.Profile.ProfileUser;
 import com.example.Statistics.Statistics;
 import com.example.ocvapp.R;
+import com.example.try1.MiddleAcivity;
+import com.example.try1.TestChoose;
 
-public class MenuActivity extends AppCompatActivity {
+public class ModesActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -28,7 +31,10 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.statistics){
-            startActivity(new Intent(MenuActivity.this,Statistics.class));
+            startActivity(new Intent(ModesActivity.this,Statistics.class));
+        }
+        if(item.getItemId() == R.id.profile){
+            startActivity(new Intent(ModesActivity.this, ProfileUser.class));
         }
         return true;
     }
@@ -52,7 +58,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final Intent intent;
-                intent = new Intent(MenuActivity.this, TestChoose.class);
+                intent = new Intent(ModesActivity.this, TestChoose.class);
                 startActivity(intent);
             }
         });
@@ -60,7 +66,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final Intent intent;
-                intent = new Intent(MenuActivity.this, MiddleAcivity.class);
+                intent = new Intent(ModesActivity.this, MiddleAcivity.class);
                 startActivity(intent);
             }
         });

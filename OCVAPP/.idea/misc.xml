@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.20989583333333334" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_authentication.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_check_rest_api.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_choose_models.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_details.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_itemactivity.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_main.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_main_login.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_main_signup.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_menu.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_middle_acivity.xml" value="0.10054347826086957" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_profile_user.xml" value="0.1" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/activity_test_choose.xml" value="0.1" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/itemlayout.xml" value="0.1" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/mainitemlayout.xml" value="0.1" />
+        <entry key="..\:/Download/AUTISM_GP22-Integrationv3/AUTISM_GP22-Integration/OCVAPP/app/src/main/res/layout/testtypeone.xml" value="0.1" />
+        <entry key="..\:/GP/Code/OCVAPP/app/src/main/res/layout/activity_color_blob_detection.xml" value="0.11302083333333333" />
+        <entry key="..\:/GP/Code/OCVAPP/app/src/main/res/layout/activity_computer_vision.xml" value="0.11302083333333333" />
+        <entry key="..\:/GP/Code/OCVAPP/app/src/main/res/layout/face_detect_surface_view.xml" value="0.11302083333333333" />
+        <entry key="app/src/main/res/drawable/ic_withyou.xml" value="0.19" />
+        <entry key="app/src/main/res/drawable/round_button.xml" value="0.186" />
+        <entry key="app/src/main/res/layout/activity_authentication.xml" value="0.1890625" />
+        <entry key="app/src/main/res/layout/activity_check_rest_api.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_choose_models.xml" value="0.1890625" />
+        <entry key="app/src/main/res/layout/activity_color_blob_detection.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_custom_face_detection.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.23958333333333334" />
+        <entry key="app/src/main/res/layout/activity_itemactivity.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_main_login.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_main_signup.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_menu.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_middle_acivity.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_practice.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_profile_user.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_ready_er.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.18072916666666666" />
+        <entry key="app/src/main/res/layout/activity_statistics.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/activity_test_choose.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/face_detect_surface_view.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/itemlayout.xml" value="0.23958333333333334" />
+        <entry key="app/src/main/res/layout/mainitemlayout.xml" value="0.23958333333333334" />
+        <entry key="app/src/main/res/layout/testchooseitem.xml" value="0.23958333333333334" />
+        <entry key="app/src/main/res/layout/testtypeone.xml" value="0.23958333333333334" />
+        <entry key="app/src/main/res/layout/videoitem.xml" value="0.23958333333333334" />
+        <entry key="app/src/main/res/menu/menu_activity_menu.xml" value="0.18177083333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

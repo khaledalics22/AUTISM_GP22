@@ -43,6 +43,7 @@ import org.opencv.imgproc.Imgproc;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class PracticeActivity extends CameraActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
@@ -255,19 +256,19 @@ public class PracticeActivity extends CameraActivity implements CameraBridgeView
     }
     //TODO add list
     private int choice[]={
-            R.drawable.angry_,R.drawable.happy,R.drawable.hungry, R.drawable.scared,
-            R.drawable.proud,R.drawable.sad,R.drawable.worried, R.drawable.hot,
-            R.drawable.exhuasted,R.drawable.cold,R.drawable.cry_, R.drawable.thirsty,
-            R.drawable.board,R.drawable.funny,R.drawable.embarrassed, R.drawable.confused,
-            R.drawable.excited,R.drawable.exhuasted,R.drawable.disgused, R.drawable.furious,
-            R.drawable.guilty,R.drawable.hungry,R.drawable.thirsty, R.drawable.love_,
-            R.drawable.hot,R.drawable.cold,R.drawable.pain, R.drawable.proud,
-            R.drawable.sick,R.drawable.sorry,R.drawable.sleepy, R.drawable.worried};
-
+            R.drawable.h1, R.drawable.n4,R.drawable.s4, R.drawable.sr3};
+    private CustomER.Emotions emotionsArray[] = {
+            CustomER.Emotions.HAPPY,
+            CustomER.Emotions.NORMAL,
+            CustomER.Emotions.SAD,
+            CustomER.Emotions.SURPRISED,
+    };
     private void updateEmotionPhoto() {
         //TODO change emotion type each time the function is called
-        currentEmotion = CustomER.Emotions.HAPPY;
-        emotionImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.happy, null));
+        Random random  = new Random();
+        int idx = Math.abs(random.nextInt()%4);
+        currentEmotion = emotionsArray[idx];
+        emotionImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), choice[idx], null));
         emotionText.setText(getEmotionText(currentEmotion));
         emotionText.setTextColor(ResourcesCompat.getColor(getResources(), getEmotionColor(currentEmotion), null));
     }

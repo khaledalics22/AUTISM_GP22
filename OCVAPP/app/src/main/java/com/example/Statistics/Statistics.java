@@ -45,7 +45,6 @@ public class Statistics extends AppCompatActivity {
         graphViewStatistics.setTitleColor(R.color.black);
         graphViewStatistics.setTitleTextSize(58);
 
-//        updateGraphEyeContact(points);
         new StatisticsBackground().execute();
 
         // recognize emotions
@@ -61,7 +60,27 @@ public class Statistics extends AppCompatActivity {
         graphViewEyeContact.setTitleColor(R.color.black);
         graphViewEyeContact.setTitleTextSize(58);
         new EyeContactBackground().execute();
-
+//        DataPoint[] points = new DataPoint[]{
+//                new DataPoint(1,0.5),
+//                new DataPoint(2,0.4),
+//                new DataPoint(3,0.2),
+//                new DataPoint(4,0.4),
+//                new DataPoint(5,0.5),
+//                new DataPoint(6,0.6),
+//                new DataPoint(7,0.8),
+//        };
+//        updateGraphRecognizeStatistics(points);
+//
+//        points = new DataPoint[]{
+//                new DataPoint(1,0.0),
+//                new DataPoint(2,0.1),
+//                new DataPoint(3,0.2),
+//                new DataPoint(4,0.3),
+//                new DataPoint(5,0.7),
+//                new DataPoint(6,0.6),
+//                new DataPoint(7,0.4),
+//        };
+//        updateGraphStatistics(points);
     }
 
     private void updateGraphStatistics(DataPoint[] points) {
@@ -103,7 +122,7 @@ public class Statistics extends AppCompatActivity {
                             points[i] = (new DataPoint(test_num, s));
                         }
                         updateGraphEyeContact(points);
-
+//
                     } catch (JSONException e) {
 //                        e.printStackTrace();
                         Log.e("Eye Contact Activity **************", "Conversion failed");
@@ -134,7 +153,7 @@ public class Statistics extends AppCompatActivity {
                             double s = object.getDouble("score");
                             points[i] = (new DataPoint(test_num, s));
                         }
-                        updateGraphStatistics(points);
+//                        updateGraphStatistics(points);
 
                     } catch (JSONException e) {
 //                        e.printStackTrace();
@@ -164,7 +183,7 @@ public class Statistics extends AppCompatActivity {
                     try {
                         JSONArray array = jsonObject.getJSONArray("results");
                         DataPoint[] points = new DataPoint[array.length()];
-                        Log.e("Statistics Activity **************", array.toString());
+                        Log.e("Recognize Statistics Activity **************", array.toString());
 
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject object = (JSONObject) array.get(i);
@@ -172,11 +191,11 @@ public class Statistics extends AppCompatActivity {
                             double s = object.getDouble("score");
                             points[i] = (new DataPoint(test_num, s));
                         }
-                        updateGraphRecognizeStatistics(points);
+//                        updateGraphRecognizeStatistics(points);
 
                     } catch (JSONException e) {
 //                        e.printStackTrace();
-                        Log.e("Statistics Activity **************", "Conversion failed");
+                        Log.e("Recognize Statistics Activity **************", "Conversion failed");
 
                     }
                 }

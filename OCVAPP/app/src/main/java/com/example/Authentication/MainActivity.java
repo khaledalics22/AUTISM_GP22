@@ -19,6 +19,7 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.Modes.ModesActivity;
 import com.example.SelectModel.ChooseModels;
 import com.example.ocvapp.R;
 
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent intent;
                 intent = new Intent(MainActivity.this, MainActivityLogin.class);
+//                intent = new Intent(MainActivity.this, ChooseModels.class);
 //                intent = new Intent(MainActivity.this, MenuActivity.class);
 
 

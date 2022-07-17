@@ -86,7 +86,7 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
         mOpenCvCameraView = findViewById(R.id.face_detect_camera_view);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
-            mOpenCvCameraView.setCameraIndex(1);//BACK Camera
+            mOpenCvCameraView.setCameraIndex(0);//BACK Camera
             mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
             mOpenCvCameraView.setCvCameraViewListener(this);
         }
@@ -258,14 +258,14 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
             Log.e("Detected Faces ---------------", String.valueOf(faces.size()));
 
             MatOfRect newFaces = null;
-            if (faces.toArray().length > 1)
-                newFaces = ImageProcessing.integrateRect(faces);
-            else {
+//            if (faces.toArray().length > 1)
+//                newFaces = ImageProcessing.integrateRect(faces);
+//            else {
                 newFaces = faces;
-            }
+//            }
             Log.e("Integrated Faces ---------------", Arrays.toString(newFaces.get(0, 0)));
             if (newFaces.toArray().length > 0) {
-                detectedFace = newFaces.toArray()[0];
+                detectedFace = getLargestFace(newFaces.toArray());
                 if (System.currentTimeMillis() - lastEyeContact > 10000) {
                     // send score in background
                     new ECUpdateBackground().execute(
@@ -279,6 +279,18 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
                 new EDBackground().execute();
             else
                 detectionTaskFinished = true;
+        }
+
+        private Rect getLargestFace(Rect[] array) {
+            int largest = 0;
+            int max_width  = 0;
+            for(int i =0; i< array.length; i++){
+                if(array[i].width > max_width){
+                    largest = i;
+                    max_width = array[i].width;
+                }
+            }
+            return array[largest];
         }
 
     }

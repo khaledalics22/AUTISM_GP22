@@ -21,7 +21,7 @@ import java.util.Map;
 public class RestAPI {
 
 
-    public static final String BASE_URL = "https://fa37-156-196-219-171.ngrok.io/";
+    public static final String BASE_URL = "https://b560-156-196-219-171.ngrok.io/";
 //    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQyZmQ1ZjJkMjM5YjI4ODAxMTAzOTkiLCJpYXQiOjE2NTc5OTQ1OTEsImV4cCI6MjQyOTAwNDUzMTM1ODI5ODAwfQ.-T2SERw-DYqbsk6SCl5-_V7mRkbnyXLfmNpThGVkfi8";
     private static RestAPI instance;
 
@@ -109,13 +109,13 @@ public class RestAPI {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, BASE_URL + "me/recognize" + "?all=true&emotion=all"
                 , response -> {
 
-            Log.e("On Response statistics -----------", response);
+            Log.e("On Response Recognize statistics -----------", response);
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 Log.e("On Response statistics -----------", "success");
                 responseCallBack.getStatisticsSuccess(jsonObject);
             } catch (JSONException e) {
-                Log.e("On Response statistics -----------", "conversion failed");
+                Log.e("On Response Recognize statistics -----------", "conversion failed");
 //                e.printStackTrace();
             }
 

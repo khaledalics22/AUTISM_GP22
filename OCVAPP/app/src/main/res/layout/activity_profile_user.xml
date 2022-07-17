@@ -25,6 +25,7 @@
             app:cardCornerRadius="100dp"
             app:cardElevation="4dp">
 
+
             <ImageView
                 android:id="@+id/profileimage"
                 android:layout_width="match_parent"
@@ -36,11 +37,15 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/b1"
                 android:contentDescription="Icon"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/makkah" />
 
         </androidx.cardview.widget.CardView>
-
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/darker_gray"/>
      <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content">

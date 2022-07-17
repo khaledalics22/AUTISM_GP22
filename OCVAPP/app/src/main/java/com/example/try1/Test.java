@@ -12,54 +12,40 @@ import java.io.InputStream;
 
 public class Test {
     private String test[]={
-            "Angry"     ,"Sad"    ,"Cry"       ,"Board"      ,"Exhausted","Thirsty","Proud","Sorry",
-            "Happy"     ,"Worried","Cold"       ,"Funny"      ,"Disgusted","Hungary","Pain" ,"Sleepy",
-            "Hungary"   ,"Hot"    ,"Exhausted"  ,"Embarrassed","Excited" ,"Guilty" ,"Cold" ,"Sick",
-            "Scared"    ,"Proud"   ,"Thirsty"   ,"Confused"   ,"Furious","Love"   ,"Hot"  ,"Worried"
+            "Happy","Happy","Happy","Happy",
+            "Sad","Sad","Sad","Sad",
+            "Normal","Normal","Normal","Normal",
+            "Surprised","Surprised","Surprised","Surprised"
+//            0,3,2,1   1,0,3,2     ,3,2,1,0    ,2,1,0,3
+//            "Happy" ,"Sad","Normal","Surprised" ,
+//            "Surprised"     ,"Happy","Normal","Sad" ,
+//            "Happy"     ,"Normal","Sad","Surprised" ,
+//            "Normal"     ,"Sad","Happy","Surprised"
     };
     private int choice[][]={
-            {R.drawable.angry_,R.drawable.happy,R.drawable.hungry, R.drawable.scared},
-            {R.drawable.proud,R.drawable.sad,R.drawable.worried, R.drawable.hot},
-            {R.drawable.exhuasted,R.drawable.cold,R.drawable.cry_, R.drawable.thirsty},
-            {R.drawable.board,R.drawable.funny,R.drawable.embarrassed, R.drawable.confused},
-            {R.drawable.excited,R.drawable.exhuasted,R.drawable.disgused, R.drawable.furious},
-            {R.drawable.guilty,R.drawable.hungry,R.drawable.thirsty, R.drawable.love_},
-            {R.drawable.hot,R.drawable.cold,R.drawable.pain, R.drawable.proud},
-            {R.drawable.sick,R.drawable.sorry,R.drawable.sleepy, R.drawable.worried},
-//////////////////////////////////////
-            {R.drawable.angry_,R.drawable.happy,R.drawable.hungry, R.drawable.scared},
-            {R.drawable.proud,R.drawable.sad,R.drawable.worried, R.drawable.hot},
-            {R.drawable.exhuasted,R.drawable.cold,R.drawable.cry_, R.drawable.thirsty},
-            {R.drawable.board,R.drawable.funny,R.drawable.embarrassed, R.drawable.confused},
-            {R.drawable.excited,R.drawable.exhuasted,R.drawable.disgused, R.drawable.furious},
-            {R.drawable.guilty,R.drawable.hungry,R.drawable.thirsty, R.drawable.love_},
-            {R.drawable.hot,R.drawable.cold,R.drawable.pain, R.drawable.proud},
-            {R.drawable.sick,R.drawable.sorry,R.drawable.sleepy, R.drawable.worried},
-////////////////////////////////////////
-            {R.drawable.angry_,R.drawable.happy,R.drawable.hungry, R.drawable.scared},
-            {R.drawable.proud,R.drawable.sad,R.drawable.worried, R.drawable.hot},
-            {R.drawable.exhuasted,R.drawable.cold,R.drawable.cry_, R.drawable.thirsty},
-            {R.drawable.board,R.drawable.funny,R.drawable.embarrassed, R.drawable.confused},
-            {R.drawable.excited,R.drawable.exhuasted,R.drawable.disgused, R.drawable.furious},
-            {R.drawable.guilty,R.drawable.hungry,R.drawable.thirsty, R.drawable.love_},
-            {R.drawable.hot,R.drawable.cold,R.drawable.pain, R.drawable.proud},
-            {R.drawable.sick,R.drawable.sorry,R.drawable.sleepy, R.drawable.worried},
-//////////////////////////////////////
-            {R.drawable.angry_,R.drawable.happy,R.drawable.hungry, R.drawable.scared},
-            {R.drawable.proud,R.drawable.sad,R.drawable.worried, R.drawable.hot},
-            {R.drawable.exhuasted,R.drawable.cold,R.drawable.cry_, R.drawable.thirsty},
-            {R.drawable.board,R.drawable.funny,R.drawable.embarrassed, R.drawable.confused},
-            {R.drawable.excited,R.drawable.exhuasted,R.drawable.disgused, R.drawable.furious},
-            {R.drawable.guilty,R.drawable.hungry,R.drawable.thirsty, R.drawable.love_},
-            {R.drawable.hot,R.drawable.cold,R.drawable.pain, R.drawable.proud},
-            {R.drawable.sick,R.drawable.sorry,R.drawable.sleepy, R.drawable.worried},
-////////////////////////////////////////
+            {R.drawable.h1,R.drawable.s1,R.drawable.sr1, R.drawable.n1},
+            {R.drawable.s2,R.drawable.sr2,R.drawable.n2, R.drawable.h2},
+            {R.drawable.sr3,R.drawable.n3,R.drawable.h3, R.drawable.s3},
+            {R.drawable.n4,R.drawable.h4,R.drawable.s4, R.drawable.sr3},
 
+            {R.drawable.h1,R.drawable.s1,R.drawable.sr1, R.drawable.n1},
+            {R.drawable.s2,R.drawable.sr2,R.drawable.n2, R.drawable.h2},
+            {R.drawable.sr3,R.drawable.n3,R.drawable.h3, R.drawable.s3},
+            {R.drawable.n4,R.drawable.h4,R.drawable.s4, R.drawable.sr3},
+
+            {R.drawable.h1,R.drawable.s1,R.drawable.sr1, R.drawable.n1},
+            {R.drawable.s2,R.drawable.sr2,R.drawable.n2, R.drawable.h2},
+            {R.drawable.sr3,R.drawable.n3,R.drawable.h3, R.drawable.s3},
+            {R.drawable.n4,R.drawable.h4,R.drawable.s4, R.drawable.sr3},
+//
+            {R.drawable.h1,R.drawable.s1,R.drawable.sr1, R.drawable.n1},
+            {R.drawable.s2,R.drawable.sr2,R.drawable.n2, R.drawable.h2},
+            {R.drawable.sr3,R.drawable.n3,R.drawable.h3, R.drawable.s3},
+            {R.drawable.n4,R.drawable.h4,R.drawable.s4, R.drawable.sr3},
     };
-    private int answer[]={0,1,2,0,1,2,3,1,
-                          1,2,1,1,2,1,2,2,
-                          2,3,0,2,0,0,1,0,
-                          3,0,3,3,3,3,0,3};
+//    private int answer[]={0,0,1,3, 2,3,1,2 ,0,2,3,3,0,0,2,3};
+    private int answer[]={0,3,2,1,1,0,3,2,3,2,1,0,2,1,0,3};
+
     public String[] getTest() {
         return test;
     }

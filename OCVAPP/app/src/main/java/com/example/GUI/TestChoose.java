@@ -1,6 +1,4 @@
-package com.example.try1;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.GUI;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,7 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Objects.Score;
 import com.example.RestApis.RestAPI;
@@ -21,12 +20,12 @@ public class TestChoose extends AppCompatActivity {
     private TextView tright;
     private TextView ttest;
 
-    private Test tst=new Test();
-    private int numTest=16;
-    private int Tests=0;
-    private int img=4;
-    private int star=0;
-    private int wrong=0;
+    private Test tst = new Test();
+    private int numTest = 16;
+    private int Tests = 0;
+    private int img = 4;
+    private int star = 0;
+    private int wrong = 0;
     private int result;
     private ImageView choose0;
     private ImageView choose1;
@@ -35,8 +34,9 @@ public class TestChoose extends AppCompatActivity {
 
     private String currentEmotionString;
     private Score score;
-    private void updateScore(boolean isCorrect){
-        if(isCorrect) {
+
+    private void updateScore(boolean isCorrect) {
+        if (isCorrect) {
             switch (currentEmotionString) {
                 case "Happy":
                     score.increaseCorrectHappy();
@@ -51,7 +51,7 @@ public class TestChoose extends AppCompatActivity {
                     score.increaseCorrectSurprised();
                     break;
             }
-        }else{
+        } else {
             switch (currentEmotionString) {
                 case "Happy":
                     score.increaseErrorHappy();
@@ -80,11 +80,14 @@ public class TestChoose extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            RestAPI.getInstance().setScoreRecognize(TestChoose.this, score);
-            score.clear();
+            if (score != null && score.notEmpty()) {
+                RestAPI.getInstance().setScoreRecognize(TestChoose.this, score);
+                score.clear();
+            }
             return null;
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,52 +99,53 @@ public class TestChoose extends AppCompatActivity {
         choose1 = (ImageView) findViewById(R.id.choose1);
         choose2 = (ImageView) findViewById(R.id.choose2);
         choose3 = (ImageView) findViewById(R.id.choose3);
-        if(Tests<numTest) {AddAnotherTest();}
+        score = new Score();
+        if (Tests < numTest) {
+            AddAnotherTest();
+        }
         choose0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(result==0){
-                        star=star+1;
-                        tright.setText(Integer.toString(star));
-                        twrong.setText( Integer.toString(wrong));
-                        AddAnotherTest();
-                }
-                else{
-                        wrong=wrong+1;
-                        tright.setText(Integer.toString(star));
-                        twrong.setText( Integer.toString(wrong));
+                if (result == 0) {
+                    star = star + 1;
+                    tright.setText(Integer.toString(star));
+                    twrong.setText(Integer.toString(wrong));
+                    AddAnotherTest();
+                } else {
+                    wrong = wrong + 1;
+                    tright.setText(Integer.toString(star));
+                    twrong.setText(Integer.toString(wrong));
                 }
             }
         });
         choose1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(result==1){
-                        star=star+1;
-                        tright.setText(Integer.toString(star));
-                        twrong.setText( Integer.toString(wrong));
-                        AddAnotherTest();
+                if (result == 1) {
+                    star = star + 1;
+                    tright.setText(Integer.toString(star));
+                    twrong.setText(Integer.toString(wrong));
+                    AddAnotherTest();
+                } else {
+                    wrong = wrong + 1;
+                    tright.setText(Integer.toString(star));
+                    twrong.setText(Integer.toString(wrong));
                 }
-                else{
-                        wrong=wrong+1;
-                        tright.setText(Integer.toString(star));
-                        twrong.setText( Integer.toString(wrong));
-                    }
-                }
+            }
 
         });
         choose2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(result==2){
-                        star=star+1;
-                        tright.setText(Integer.toString(star));
-                        twrong.setText( Integer.toString(wrong));
-                        AddAnotherTest();}
-                else{
-                        wrong=wrong+1;
-                        tright.setText(Integer.toString(star));
-                        twrong.setText( Integer.toString(wrong));
+                if (result == 2) {
+                    star = star + 1;
+                    tright.setText(Integer.toString(star));
+                    twrong.setText(Integer.toString(wrong));
+                    AddAnotherTest();
+                } else {
+                    wrong = wrong + 1;
+                    tright.setText(Integer.toString(star));
+                    twrong.setText(Integer.toString(wrong));
                 }
             }
         });
@@ -149,16 +153,15 @@ public class TestChoose extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(result==3){
-                        star=star+1;
-                        tright.setText(Integer.toString(star));
-                        twrong.setText( Integer.toString(wrong));
-                        AddAnotherTest();
-                }
-                else{
-                        wrong=wrong+1;
-                        tright.setText(Integer.toString(star));
-                        twrong.setText( Integer.toString(wrong));
+                if (result == 3) {
+                    star = star + 1;
+                    tright.setText(Integer.toString(star));
+                    twrong.setText(Integer.toString(wrong));
+                    AddAnotherTest();
+                } else {
+                    wrong = wrong + 1;
+                    tright.setText(Integer.toString(star));
+                    twrong.setText(Integer.toString(wrong));
                 }
 
             }
@@ -167,13 +170,13 @@ public class TestChoose extends AppCompatActivity {
 
     }
 
-    public void AddAnotherTest(){
-        Random random=new Random();
-        int ind=random.nextInt(numTest-1);
-        Log.i("kkkkkkkkkkkkkk", ""+ind);
-        String u=tst.getTest()[ind];
-        int [] v=tst.getChoice()[ind];
-        result=tst.getAnswer()[ind];
+    public void AddAnotherTest() {
+        Random random = new Random();
+        int ind = random.nextInt(numTest - 1);
+        Log.i("kkkkkkkkkkkkkk", "" + ind);
+        String u = tst.getTest()[ind];
+        int[] v = tst.getChoice()[ind];
+        result = tst.getAnswer()[ind];
         ttest.setText(u);
         choose0.setImageResource(v[0]);
         choose1.setImageResource(v[1]);

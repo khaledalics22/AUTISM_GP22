@@ -1,14 +1,6 @@
-package com.example.try1;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+package com.example.GUI;
 
 import com.example.ocvapp.R;
-
-import java.io.InputStream;
 
 public class Test {
     private String test[]={

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/b2"
     android:baselineAligned="false">
 
     <LinearLayout
@@ -153,10 +154,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="20dp"
-            android:background="@color/second_color"
+            android:background="@drawable/round_button"
             android:text="Signup"
             android:textColor="@color/ask_background"
             android:textSize="24sp"
+            android:padding="10dp"
             android:textStyle="bold" />
     </LinearLayout>
 </ScrollView>

@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3D5DF"
+    android:background="@drawable/b2"
     android:baselineAligned="false"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".TestChoose">
+    android:padding="10dp">
 
 
     <LinearLayout
@@ -86,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:background="@drawable/gif1"
+
         android:scrollbars="vertical"
         tools:context=".MiddleAcivity"
         tools:ignore="MissingClass"></androidx.recyclerview.widget.RecyclerView>

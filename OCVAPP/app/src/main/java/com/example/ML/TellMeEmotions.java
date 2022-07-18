@@ -3,12 +3,14 @@ package com.example.ML;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.opengl.Matrix;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -24,9 +26,11 @@ import org.opencv.android.CameraActivity;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
@@ -65,6 +69,7 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
     private Rect detectedFace;
     //    private final List<Integer> predicted_list = new ArrayList<>();
     private boolean detectionTaskFinished;
+    private double eyeDetectionScore;
 
 
     public TellMeEmotions() {
@@ -88,6 +93,7 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
                 == PackageManager.PERMISSION_GRANTED) {
             mOpenCvCameraView.setCameraIndex(0);//BACK Camera
             mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
+
             mOpenCvCameraView.setCvCameraViewListener(this);
         }
     }
@@ -132,6 +138,7 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
         grayscaleImage = new Mat(height, width, CvType.CV_8U);
         detectedFace = null;
         detectionTaskFinished = true;
+        eyeDetectionScore = 1;
 
     }
 
@@ -154,10 +161,10 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
         }
         switch (pClass) {
 
-            case NORMAL:
-                mPlayer = MediaPlayer.create(this, R.raw.happy);
-                mPlayer.start();
-                break;
+//            case NORMAL:
+//                mPlayer = MediaPlayer.create(this, R.raw.happy);
+//                mPlayer.start();
+//                break;
             case HAPPY:
                 mPlayer = MediaPlayer.create(this, R.raw.happy);
                 mPlayer.start();
@@ -183,8 +190,15 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         // Create a grayscale image
         Mat rgbaImage = inputFrame.rgba();
+        Core.rotate(rgbaImage,rgbaImage,Core.ROTATE_90_CLOCKWISE);
+
+//        Mat mat = Imgproc.getRotationMatrix2D(new Point(rgbaImage.width()/2.0, rgbaImage.height()/2.0), 90, 1);
+//        Imgproc.warpAffine(rgbaImage, rgbaImage, mat, Imgproc.INTER_LINEAR);
+
         if (System.currentTimeMillis() - lastTimeDetect > 1000 && detectionTaskFinished) {
             grayscaleImage = inputFrame.gray();
+            Core.rotate(grayscaleImage,grayscaleImage,Core.ROTATE_90_CLOCKWISE);
+
             lastTimeDetect = System.currentTimeMillis();
             Log.e("Face Detection----------------:", "start face detection");
             detectionTaskFinished = false;
@@ -193,8 +207,17 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
         }
         try {
             if (detectedFace != null) {
-                Imgproc.rectangle(rgbaImage, detectedFace.tl(), detectedFace.br(), new Scalar(255, 0, 0, 255), 2);
+                Imgproc.rectangle(rgbaImage, detectedFace.tl(), detectedFace.br(), new Scalar(0, 0, 255, 255), 2);
                 Imgproc.putText(rgbaImage,getEmotionText(),detectedFace.tl(),Imgproc.FONT_HERSHEY_DUPLEX,1, getEmotionColor());
+                if(arrowPoint1!=null && eyeDetectionScore >= 0.6 && eyeDetectionScore < 0.8) {
+                    Imgproc.arrowedLine(rgbaImage,arrowPoint2, arrowPoint1,new Scalar(0, 255 , 0, 255),2);
+                    Toast.makeText(TellMeEmotions.this, "Average Eye Contact\nMove in the green arrow direction", Toast.LENGTH_LONG).show();
+                }
+                else if(arrowPoint1!=null && eyeDetectionScore < 0.6){
+                    Imgproc.arrowedLine(rgbaImage,arrowPoint2, arrowPoint1,new Scalar(255, 0 , 0, 255),2);
+                    Toast.makeText(TellMeEmotions.this, "Very Poor Eye Contact\nMove in the red arrow direction", Toast.LENGTH_LONG).show();
+
+                }
             }
         } catch (Exception e) {
             Log.e("OnCameraFrame", "failed to detect face");
@@ -266,10 +289,12 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
             Log.e("Integrated Faces ---------------", Arrays.toString(newFaces.get(0, 0)));
             if (newFaces.toArray().length > 0) {
                 detectedFace = getLargestFace(newFaces.toArray());
+                updateArrow(detectedFace, grayscaleImage.size());
                 if (System.currentTimeMillis() - lastEyeContact > 10000) {
                     // send score in background
+                    eyeDetectionScore = EyeContact.getInstance().getScore(detectedFace, grayscaleImage.size());
                     new ECUpdateBackground().execute(
-                            EyeContact.getInstance().getScore(detectedFace, grayscaleImage.size()));
+                            eyeDetectionScore);
                     lastEyeContact = System.currentTimeMillis();
                 }
 //                EmotionRecognition.Emotions emotion = EmotionRecognition.getInstance().predict(CustomFD.this, detectedFace);
@@ -277,8 +302,11 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
             }
             if (detectedFace != null)
                 new EDBackground().execute();
-            else
+            else{
+                grayscaleImage = null;
                 detectionTaskFinished = true;
+                Toast.makeText(TellMeEmotions.this,"Please look at the person",Toast.LENGTH_SHORT).show();
+            }
         }
 
         private Rect getLargestFace(Rect[] array) {
@@ -294,6 +322,18 @@ public class TellMeEmotions extends CameraActivity implements CameraBridgeViewBa
         }
 
     }
+    private  Point arrowPoint1;
+    private Point arrowPoint2;
+
+    private void updateArrow(Rect rect, Size size) {
+        arrowPoint1 = new Point();
+        arrowPoint1.x = rect.x + rect.width / 2.0;
+        arrowPoint1.y = rect.y + rect.height/2.0;
+        arrowPoint2 = new Point();
+        arrowPoint2.x = size.width/2;
+        arrowPoint2.y = size.height/2;
+    }
+
     class ECUpdateBackground extends AsyncTask<Double, Void, Void> {
 
 

@@ -1,4 +1,4 @@
-package com.example.RestApis;
+package com.example.Objects;
 
 /**
  * Holds current user data
@@ -12,6 +12,17 @@ public class User {
     private static String    gander = null;
     private static String    brithDay = null;
     private static String Token=null;
+
+    public static int getType() {
+        return type;
+    }
+
+    public static void setType(int type) {
+        User.type = type;
+    }
+
+    private static int type=0;
+
     public User() {
     }
 

@@ -7,8 +7,8 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.example.Objects.Score;
+import com.example.Objects.User;
 import com.example.Statistics.Statistics;
-import com.example.try1.TestChoose;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +21,7 @@ import java.util.Map;
 public class RestAPI {
 
 
-    public static final String BASE_URL = "https://b560-156-196-219-171.ngrok.io/";
+    public static final String BASE_URL = "https://989d-102-42-166-198.ngrok.io/";
 //    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQyZmQ1ZjJkMjM5YjI4ODAxMTAzOTkiLCJpYXQiOjE2NTc5OTQ1OTEsImV4cCI6MjQyOTAwNDUzMTM1ODI5ODAwfQ.-T2SERw-DYqbsk6SCl5-_V7mRkbnyXLfmNpThGVkfi8";
     private static RestAPI instance;
 

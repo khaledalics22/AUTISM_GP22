@@ -11,14 +11,13 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.Authentication.MainActivity;
 import com.example.ML.TellMeEmotions;
 import com.example.Practice.PracticeActivity;
 import com.example.Profile.ProfileUser;
 import com.example.Statistics.Statistics;
 import com.example.ocvapp.R;
-import com.example.try1.MiddleAcivity;
-import com.example.try1.TestChoose;
+import com.example.GUI.MiddleAcivity;
+import com.example.GUI.TestChoose;
 
 public class ModesActivity extends AppCompatActivity {
     @Override

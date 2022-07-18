@@ -5,26 +5,42 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:background="@drawable/b2"
+
     tools:context="com.example.SelectModel.ChooseModels">
 
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:textSize="28sp"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:layout_weight="3"-->
+<!--        />-->
     <Button
         android:id="@+id/custom_models"
         android:layout_width="match_parent"
         android:text="Custom Models"
-        android:layout_height="0dp"
+        android:padding="20dp"
+        style="@style/BigButton"
+        android:background="@drawable/round_button"
+
+        android:layout_height="wrap_content"
         android:textSize="28sp"
         android:layout_margin="20dp"
-        android:layout_weight="1"
         />
 
     <Button
         android:id="@+id/ready_models"
         android:text="Ready Models"
-        android:layout_height="0dp"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
-
         android:textSize="28sp"
+        android:background="@drawable/round_button"
+
         android:layout_width="match_parent"
-        android:layout_weight="1" />
+        />
 
 </LinearLayout>

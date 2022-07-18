@@ -111,8 +111,9 @@ public class PracticeActivity extends CameraActivity implements CameraBridgeView
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
-            mOpenCvCameraView.setCameraIndex(0);//Front Camera
+            mOpenCvCameraView.setCameraIndex(1);//Front Camera
             mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
+
             mOpenCvCameraView.setCvCameraViewListener(this);
         }
     }
@@ -123,7 +124,8 @@ public class PracticeActivity extends CameraActivity implements CameraBridgeView
         Log.e("Activity: ----------", "pause activity");
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
-        new updateScoreBackground().execute(score);
+        if (score.notEmpty())
+            new updateScoreBackground().execute(score);
     }
 
     private void updateScore(boolean isCorrect) {
@@ -209,9 +211,11 @@ public class PracticeActivity extends CameraActivity implements CameraBridgeView
         // Create a grayscale image
         if (detectionTaskFinished) {
             rgbaImage = inputFrame.rgba();
-            Core.flip(rgbaImage, rgbaImage, 1);
+//            Core.transpose(rgbaImage, rgbaImage);
+            Core.rotate(rgbaImage,rgbaImage,Core.ROTATE_90_COUNTERCLOCKWISE);
             grayscaleImage = inputFrame.rgba();
-            Core.flip(grayscaleImage, grayscaleImage, 1);
+            Core.rotate(grayscaleImage,grayscaleImage,Core.ROTATE_90_COUNTERCLOCKWISE);
+//            Core.flip(grayscaleImage, grayscaleImage, 1);
         }
         if (detectedFace != null && System.currentTimeMillis() - lastShownRectTime < 1000) {
             Imgproc.rectangle(rgbaImage, detectedFace.tl(), detectedFace.br(), new Scalar(255, 0, 0, 255), 2);
@@ -254,19 +258,21 @@ public class PracticeActivity extends CameraActivity implements CameraBridgeView
 
         }
     }
+
     //TODO add list
-    private int choice[]={
-            R.drawable.h1, R.drawable.n4,R.drawable.s4, R.drawable.sr3};
+    private int choice[] = {
+            R.drawable.h1, R.drawable.n4, R.drawable.s4, R.drawable.sr3};
     private CustomER.Emotions emotionsArray[] = {
             CustomER.Emotions.HAPPY,
             CustomER.Emotions.NORMAL,
             CustomER.Emotions.SAD,
             CustomER.Emotions.SURPRISED,
     };
+
     private void updateEmotionPhoto() {
         //TODO change emotion type each time the function is called
-        Random random  = new Random();
-        int idx = Math.abs(random.nextInt()%4);
+        Random random = new Random();
+        int idx = Math.abs(random.nextInt() % 4);
         currentEmotion = emotionsArray[idx];
         emotionImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), choice[idx], null));
         emotionText.setText(getEmotionText(currentEmotion));

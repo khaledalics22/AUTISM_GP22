@@ -98,4 +98,15 @@ public class Score {
         error_sad = 0;
         error_surprised = 0;
     }
+
+    public boolean notEmpty() {
+        return correct_happy != 0
+                || correct_natural != 0
+                || correct_sad != 0
+                || correct_surprised != 0
+                || error_happy != 0
+                || error_natural != 0
+                || error_sad != 0
+                || error_surprised != 0;
+    }
 }

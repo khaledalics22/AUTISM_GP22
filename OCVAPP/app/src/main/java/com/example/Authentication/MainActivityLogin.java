@@ -1,5 +1,6 @@
 package com.example.Authentication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,13 +15,16 @@ import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+import com.example.Objects.User;
 import com.example.RestApis.LoginData;
 import com.example.SelectModel.ChooseModels;
 import com.example.ocvapp.R;
 import com.example.Interfaces.EndPointAPI;
 import com.example.RestApis.RetrofitClass;
 import com.example.RestApis.SignupRequest;
-import com.example.RestApis.User;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivityLogin extends AppCompatActivity {
     private EndPointAPI mEndPointAPI;
@@ -69,6 +73,12 @@ public class MainActivityLogin extends AppCompatActivity {
                     User.setPassword(loginData.getPassword());
                     User.setEmail(loginData.getIdentifier());
                     Toast.makeText(MainActivityLogin.this, "Success ", Toast.LENGTH_SHORT).show();
+                    try {
+                        Log.v("88888888", "Save");
+                        Save_token(User.getToken());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     final Intent intent;
                     intent =  new Intent(MainActivityLogin.this, ChooseModels.class);
                     startActivity(intent);
@@ -93,6 +103,16 @@ public class MainActivityLogin extends AppCompatActivity {
             }
         });
 
+    }
+
+    void Save_token(String token) throws IOException
+    {
+        //create and save a file
+        FileOutputStream local_file_out = openFileOutput("Token", Context.MODE_PRIVATE);
+        //Write token on a file
+        local_file_out.write(token.getBytes());
+        Log.v("7777777", ""+token.getBytes());
+        local_file_out.close();
     }
     @Override
     public void onBackPressed(){

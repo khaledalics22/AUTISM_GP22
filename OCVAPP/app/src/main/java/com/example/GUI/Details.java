@@ -1,4 +1,4 @@
-package com.example.try1;
+package com.example.GUI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,8 +37,10 @@ public class Details extends AppCompatActivity {
         int imgID = intent.getIntExtra("image", 0);
         int type = intent.getIntExtra("type", 0);
         mainimage = (ImageView) findViewById(R.id.mainimage);
+
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
         mainimage.startAnimation(animation);
+
         image1 = (ImageView) findViewById(R.id.image1);
         image2 = (ImageView) findViewById(R.id.image2);
         image3 = (ImageView) findViewById(R.id.image3);
@@ -82,7 +84,7 @@ public class Details extends AppCompatActivity {
                 text2.setText("أنا أَرَى");
                 text3.setText("أنا أريد");
                 image1.setImageResource(R.drawable.lovenot);
-                image2.setImageResource(R.drawable.see);
+                image2.setImageResource(R.drawable.seev);
                 image3.setImageResource(R.drawable.hand);
                 break;
             case 2:
@@ -103,7 +105,7 @@ public class Details extends AppCompatActivity {
                 text1.setText("أَنَا أَشْعُرُ ");
                 text2.setText("هل أنت تَشْعُرُ ");
                 text3.setText("أنا أريد أن أَشْعُرُ ");
-                image1.setImageResource(R.drawable.me);
+                image1.setImageResource(R.drawable.canihave);
                 image2.setImageResource(R.drawable.question);
                 image3.setImageResource(R.drawable.hand);
                 break;
@@ -137,7 +139,7 @@ public class Details extends AppCompatActivity {
                 text2.setText("أَنَا أَرْسُمُ");
                 text3.setText("أنا أُحِبُّ ");
                 image1.setImageResource(R.drawable._this);
-                image2.setImageResource(R.drawable.me);
+                image2.setImageResource(R.drawable.canihave);
                 image3.setImageResource(R.drawable.lovenot);
                 break;
             case 7:

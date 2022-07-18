@@ -1,6 +1,7 @@
 package com.example.Authentication;
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -19,15 +20,19 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.Modes.ModesActivity;
+import com.example.Objects.User;
 import com.example.SelectModel.ChooseModels;
 import com.example.ocvapp.R;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     MediaPlayer mMediaPlayer;
     Dialog mDialog;
     private Button btlogin,btnsignup;
-    private VideoView video;
+//    private VideoView video;
     private static boolean splashShown = false;
     public void showsplash() {
 
@@ -69,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            Check_token();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             Log.e("Action Bar", "*******************************");
@@ -81,20 +91,20 @@ public class MainActivity extends AppCompatActivity {
             showsplash();
             splashShown =true;
         }
-        video = findViewById(R.id.videoView);
+//        video = findViewById(R.id.videoView);
         btlogin = findViewById(R.id.Login);
         btnsignup=(Button) findViewById(R.id.Signup);
 
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video);
-        video.setVideoURI(uri);
-        video.start();
-        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-
-                mediaPlayer.setLooping(true);
-            }
-        });
+//        video.setVideoURI(uri);
+//        video.start();
+//        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mediaPlayer) {
+//
+//                mediaPlayer.setLooping(true);
+//            }
+//        });
 
         btlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,19 +127,61 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    String Get_Token_file() throws IOException
+    {
+        int c;
+        String token_file="";
+        //open a file
+        FileInputStream local_file_in = openFileInput("Token");
+        while( (c = local_file_in.read()) != -1)
+        {
+            token_file = token_file + Character.toString((char)c);
+        }
+        local_file_in.close();
+        return    token_file;
+    }
+
+    void Delete_token() throws IOException {
+        FileOutputStream local_file_out = openFileOutput("Token", Context.MODE_PRIVATE);
+        local_file_out.write(Integer.parseInt(""));
+        local_file_out.close();
+    }
+    void Save_token(String token) throws IOException {
+        //create and save a file
+        FileOutputStream local_file_out = openFileOutput("Token", Context.MODE_PRIVATE);
+        //Write token on a file
+        local_file_out.write(token.getBytes());
+        local_file_out.close();
+    }
+    void Check_token() throws IOException {
+        String local_token =Get_Token_file();
+        if(local_token.equals("Delete")) {
+            Log.v("111111111111", "Main Delete");
+//            User.setType(0);
+        }
+
+        else{
+//            User.setType(1);
+            Log.v("22222222222", "you already sign in "+local_token);
+            User.setToken(local_token);
+            final Intent intent;
+            intent = new Intent(MainActivity.this, ChooseModels.class);
+            startActivity(intent);
+        }
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
         // Capture the current video position and pause the video.
-        video.pause();
+//        video.pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         // Restart the video when resuming the Activity
-        video.start();
+//        video.start();
     }
 
     @Override

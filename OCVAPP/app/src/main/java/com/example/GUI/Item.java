@@ -1,4 +1,4 @@
-package com.example.try1;
+package com.example.GUI;
 
 public class Item {
     private int image;

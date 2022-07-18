@@ -1,4 +1,4 @@
-package com.example.try1;
+package com.example.GUI;
 
 import android.os.Bundle;
 

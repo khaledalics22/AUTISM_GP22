@@ -7,9 +7,9 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     android:scrollbars="vertical"
-    android:background="@drawable/gif1"
+    android:background="@drawable/b2"
 
-    tools:context=".MiddleAcivity"
+
     tools:ignore="MissingClass">
 
 </androidx.recyclerview.widget.RecyclerView>

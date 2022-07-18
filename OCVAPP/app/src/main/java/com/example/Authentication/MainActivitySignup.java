@@ -1,5 +1,6 @@
 package com.example.Authentication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,15 +10,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.Interfaces.EndPointAPI;
+import com.example.Objects.User;
 import com.example.RestApis.SignUpData;
 import com.example.SelectModel.ChooseModels;
 import com.example.ocvapp.R;
 import com.example.RestApis.RetrofitClass;
 import com.example.RestApis.SignupRequest;
-import com.example.RestApis.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Locale;
 
 import okhttp3.Response;
@@ -98,6 +101,12 @@ public class MainActivitySignup extends AppCompatActivity {
                     User.setBrithDay(signUpData.getBrithDay());
                     User.setGander(signUpData.getGander());
                     Log.v("eeeeeeeeeeee", User.getToken());
+                    try {
+                        Log.v("444444444", "Save");
+                        Save_token(User.getToken());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     Toast.makeText(MainActivitySignup.this, "Success  ", Toast.LENGTH_SHORT).show();
                     final Intent intent;
                     intent =  new Intent(MainActivitySignup.this, ChooseModels.class);
@@ -124,7 +133,17 @@ public class MainActivitySignup extends AppCompatActivity {
         });
 
     }
-@Override
+    void Save_token(String token) throws IOException
+    {
+        //create and save a file
+        FileOutputStream local_file_out = openFileOutput("Token", Context.MODE_PRIVATE);
+        //Write token on a file
+        local_file_out.write(token.getBytes());
+        Log.v("55555555", ""+token.getBytes());
+        local_file_out.close();
+    }
+
+    @Override
     public void onBackPressed(){
     final Intent intent;
     intent =  new Intent(MainActivitySignup.this, MainActivity.class);

@@ -49,13 +49,13 @@
         <activity android:name="com.example.ML.TellMeEmotions" />
         <activity android:name="com.example.SelectModel.ChooseModels" />
         <activity android:name="com.example.Statistics.Statistics" />
-        <activity android:name="com.example.try1.MiddleAcivity" />
+        <activity android:name="com.example.GUI.MiddleAcivity" />
         <activity android:name="com.example.Profile.ProfileUser" />
         <activity android:name="com.example.Authentication.MainActivityLogin" />
         <activity android:name="com.example.Authentication.MainActivitySignup"/>
-        <activity android:name="com.example.try1.ItemActivity" />
-        <activity android:name="com.example.try1.Details" />
-        <activity android:name="com.example.try1.TestChoose" />
+        <activity android:name="com.example.GUI.ItemActivity" />
+        <activity android:name="com.example.GUI.Details" />
+        <activity android:name="com.example.GUI.TestChoose" />
     </application>
 
 </manifest>

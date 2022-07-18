@@ -35,4 +35,9 @@ public class ChooseModels extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        System.exit(0);
+    }
 }

@@ -153,7 +153,7 @@ public class Statistics extends AppCompatActivity {
                             double s = object.getDouble("score");
                             points[i] = (new DataPoint(test_num, s));
                         }
-//                        updateGraphStatistics(points);
+                        updateGraphStatistics(points);
 
                     } catch (JSONException e) {
 //                        e.printStackTrace();
@@ -186,12 +186,13 @@ public class Statistics extends AppCompatActivity {
                         Log.e("Recognize Statistics Activity **************", array.toString());
 
                         for (int i = 0; i < array.length(); i++) {
+                            Log.e("Recognize Statistics Activity **************", array.get(i).toString());
                             JSONObject object = (JSONObject) array.get(i);
                             int test_num = object.getInt("test_number");
                             double s = object.getDouble("score");
                             points[i] = (new DataPoint(test_num, s));
                         }
-//                        updateGraphRecognizeStatistics(points);
+                        updateGraphRecognizeStatistics(points);
 
                     } catch (JSONException e) {
 //                        e.printStackTrace();
